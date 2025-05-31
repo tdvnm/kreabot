@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+:root {
+  --main__bg: #F6EAEA;
+  --main__border: 1px solid #996A78;
+  --main__text: #623A52;
+  --main__bg-gradient: linear-gradient(to bottom,
+      #F6EAEA 0%,
+      #F6EAEA 10%,
+      #F6EAEA 60%,
+      #F6EAEA 100%);
+
+  /* dark */
+  --dark__border: 1px solid #6e405c;
+
+
+  /* light */
+  --light__text: #927F83;
+
+  /* peach */
+  --peach__grad: linear-gradient(to bottom,
+      #FFFFFF 0%,
+      #FFD5BF 10%,
+      #FFC7B1 60%,
+      #FFC0B0 100%);
+
+  /* green */
+  --green__border: #162922 1px solid;
+  --green__grad: linear-gradient(to top,
+      #5db192bb 1%,
+      #7fbeb2 55%,
+      #d2feff);
+
+
+  --bg-button-gray: linear-gradient(to bottom,
+      #FFFFFF 0%,
+      #e5e5e5 10%,
+      #dcdcdc 60%,
+      #c3c3c3 100%);
+
+  --border-light: 1px solid #B58392;
+  --border-gray-dark: 1px solid #999090;
+
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  font-size: 65%;
+  font-family: 'Ubuntu Sans', sans-serif;
+}
+
+input,
+nav,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
