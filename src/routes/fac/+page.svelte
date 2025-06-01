@@ -120,7 +120,7 @@
 
 		input {
 			flex: 1;
-			padding: 1.2rem;
+			padding: 1rem;
 			padding-right: 2.5rem; // space for clear button
 			border: var(--gray__border);
 			border-right: none;
@@ -129,7 +129,7 @@
 			border-radius: 4px 0 0 4px;
 			box-shadow: inset 0px 4px 6px 1px #c4ced868;
 			height: 4rem;
-			font-size: 1.6rem;
+			font-size: 1.4rem;
 		}
 		.clear-btn {
 			position: absolute;
@@ -140,7 +140,7 @@
 			font-size: 1.4rem;
 			padding: 0;
 			z-index: 2;
-			height: 2.5rem;
+			height: 2rem;
 			width: 2.5rem;
 			display: flex;
 			align-items: center;
