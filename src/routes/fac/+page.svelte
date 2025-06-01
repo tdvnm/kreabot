@@ -1,114 +1,111 @@
 <script lang="ts">
+	import Container from './Container.svelte';
+	import ContainerCard from './ContainerCard.svelte';
+	import Sort from '$lib/components/icons/Sort.svelte';
+	import Delete from '$lib/components/icons/Delete.svelte';
+	import Search from '$lib/components/icons/Search.svelte';
 
-    import Container from './Container.svelte';
-    import ContainerCard from './ContainerCard.svelte';
-    import Sort from '$lib/components/icons/Sort.svelte';
-    import Delete from '$lib/components/icons/Delete.svelte';
-    import Search from '$lib/components/icons/Search.svelte';
+	export let data: {
+		subject: Record<string, Professor[]>;
+		alphabetical: Professor[];
+	};
 
-    export let data: {
-        subject: Record<string, Professor[]>;
-        alphabetical: Professor[];
-    };
+	type Professor = {
+		id: string;
+		name: string;
+		subject: string;
+		email: string;
+		location: string;
+		office_hours: string;
+		image_url: string;
+		position: string;
+		url: string;
+	};
 
-    type Professor = {
-        id: string;
-        name: string;
-        subject: string;
-        email: string;
-        location: string;
-        office_hours: string;
-        image_url: string;
-        position: string;
-        url: string;
-    };
+	// filters
+	let showFilterOptions = false;
+	let viewMode: 'subject' | 'alphabetical' = 'subject';
 
-    // filters
-    let showFilterOptions = false;
-    let viewMode: 'subject' | 'alphabetical' = 'subject';
-
-    // search
-    let searchQuery = '';
-    $: searchResult =
-        searchQuery.length > 1 && data
-            ? data.alphabetical.filter(
-                    (prof) =>
-                        prof.id && // Only show professors with valid id
-                        (prof.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            prof.subject.toLowerCase().includes(searchQuery.toLowerCase()))
-              )
-            : [];
+	// search
+	let searchQuery = '';
+	$: searchResult =
+		searchQuery.length > 1 && data
+			? data.alphabetical.filter(
+					(prof) =>
+						prof.id && // Only show professors with valid id
+						(prof.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+							prof.subject.toLowerCase().includes(searchQuery.toLowerCase()))
+				)
+			: [];
 </script>
 
 <!-- Search + Filter -->
 <div class="search-container">
-    <input type="text" placeholder="search for professor or department ..." bind:value={searchQuery} />
-    {#if searchQuery}
-        <button
-            class="clear-btn"
-            type="button"
-            on:click={() => (searchQuery = '')}
-            aria-label="Clear search"
-        >
-            <Delete size="5rem" />
-        </button>
-    {/if}
-    <button on:click={() => (showFilterOptions = !showFilterOptions)}>
-        <Sort />
-    </button>
+	<input
+		type="text"
+		placeholder="search for professor or department ..."
+		bind:value={searchQuery}
+	/>
+	{#if searchQuery}
+		<button
+			class="clear-btn"
+			type="button"
+			on:click={() => (searchQuery = '')}
+			aria-label="Clear search"
+		>
+			<Delete size="5rem" />
+		</button>
+	{/if}
+	<button on:click={() => (showFilterOptions = !showFilterOptions)}>
+		<Sort />
+	</button>
 </div>
 
 {#if showFilterOptions}
-    <div class="filter-options">
-        <label>
-            <input type="radio" name="viewMode" value="subject" bind:group={viewMode} /> department
-        </label>
-        <label>
-            <input type="radio" name="viewMode" value="alphabetical" bind:group={viewMode} /> alphabetical
-        </label>
-    </div>
+	<div class="filter-options">
+		<label>
+			<input type="radio" name="viewMode" value="subject" bind:group={viewMode} /> department
+		</label>
+		<label>
+			<input type="radio" name="viewMode" value="alphabetical" bind:group={viewMode} /> alphabetical
+		</label>
+	</div>
 {/if}
 
 <main>
-    {#if searchQuery.length > 1}
-        {#if searchResult.length > 0}
-            <Container heading="search results" collapsible={false}>
-                <span slot="icon">
-                    <Search size="1.4rem" />
-                </span>
-                
-                {#each searchResult.filter(prof => prof.id && prof.name && prof.subject) as prof (prof.id)}
-                    <ContainerCard
-                        {...prof}
-                        position={`${prof.position}, ${prof.subject}`}
-                    />
-                {/each}
-            </Container>
-        {:else}
-            <p class="no-results">No results found for "{searchQuery}".</p>
-        {/if}
-    {:else if viewMode === 'subject'}
-        {#each Object.entries(data.subject) as [subject, professors]}
-            <Container heading={`${subject} (${professors.length})`}>
-                {#each professors as prof (prof.id)}
-                    <ContainerCard {...prof} />
-                {/each}
-            </Container>
-        {/each}
-    {:else}
-        {#each 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('') as letter}
-            {#if data.alphabetical.some((p) => p.name[0].toUpperCase() === letter)}
-                <Container heading={letter}>
-                    {#each data.alphabetical.filter((p) => p.name[0].toUpperCase() === letter) as prof (prof.id)}
-                        <ContainerCard
-                            {...prof}
-                            position={`${prof.position}, ${prof.subject}`}
-                        />
-                    {/each}
-                </Container>
-            {/if}
-        {/each}
-    {/if}
+	{#if searchQuery.length > 1}
+		{#if searchResult.length > 0}
+			<Container heading="search results" collapsible={false}>
+				<span slot="icon">
+					<Search size="1.4rem" />
+				</span>
+
+				{#each searchResult.filter((prof) => prof.id && prof.name && prof.subject) as prof (prof.id)}
+					<ContainerCard {...prof} position={`${prof.position}, ${prof.subject}`} />
+				{/each}
+			</Container>
+		{:else}
+			<p class="no-results">No results found for "{searchQuery}".</p>
+		{/if}
+	{:else if viewMode === 'subject'}
+		{#each Object.entries(data.subject) as [subject, professors]}
+			<Container heading={`${subject} (${professors.length})`}>
+				{#each professors as prof (prof.id)}
+					<ContainerCard {...prof} />
+				{/each}
+			</Container>
+		{/each}
+	{:else}
+		{#each 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('') as letter}
+			{#if data.alphabetical.some((p) => p.name[0].toUpperCase() === letter)}
+				<Container heading={letter}>
+					{#each data.alphabetical.filter((p) => p.name[0].toUpperCase() === letter) as prof (prof.id)}
+						<ContainerCard {...prof} position={`${prof.position}, ${prof.subject}`} />
+					{/each}
+				</Container>
+			{/if}
+		{/each}
+	{/if}
 </main>
 
 <style lang="scss">
@@ -136,7 +133,7 @@
 		}
 		.clear-btn {
 			position: absolute;
-			right: 6rem; 
+			right: 6rem;
 			background: none;
 			border: none;
 			color: var(--light__text);
@@ -148,7 +145,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-            opacity: 0.8;
+			opacity: 0.8;
 		}
 		button:not(.clear-btn) {
 			background: rgb(189, 202, 220);
@@ -158,7 +155,7 @@
 			padding: 1rem;
 			font-weight: 600;
 			height: 4rem;
-            font-size: 1.8rem;
+			font-size: 1.8rem;
 			border-radius: 0 4px 4px 0;
 		}
 	}
