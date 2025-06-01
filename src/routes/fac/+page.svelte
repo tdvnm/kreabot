@@ -81,7 +81,6 @@
                     <ContainerCard
                         {...prof}
                         position={`${prof.position}, ${prof.subject}`}
-                        office_hrs={prof.office_hours}
                     />
                 {/each}
             </Container>
@@ -92,7 +91,7 @@
         {#each Object.entries(data.subject) as [subject, professors]}
             <Container heading={`${subject} (${professors.length})`}>
                 {#each professors as prof (prof.id)}
-                    <ContainerCard {...prof} office_hrs={prof.office_hours} />
+                    <ContainerCard {...prof} />
                 {/each}
             </Container>
         {/each}
@@ -104,7 +103,6 @@
                         <ContainerCard
                             {...prof}
                             position={`${prof.position}, ${prof.subject}`}
-                            office_hrs={prof.office_hours}
                         />
                     {/each}
                 </Container>
@@ -121,15 +119,15 @@
 		padding: 1rem;
 		background: linear-gradient(to top, #e9e9e9 0%, #f6f6f6 100%);
 		box-shadow: 0px 2px 6px -2px rgba(99, 76, 76, 0.25);
-		border-bottom: var(--border-gray-dark);
+		border-bottom: var(--gray__border);
 
 		input {
 			flex: 1;
 			padding: 1.2rem;
 			padding-right: 2.5rem; // space for clear button
-			border: var(--border-gray-dark);
+			border: var(--gray__border);
 			border-right: none;
-			color: var(--secondary-text);
+			color: var(--light__text);
 			background-color: white;
 			border-radius: 4px 0 0 4px;
 			box-shadow: inset 0px 4px 6px 1px #c4ced868;
@@ -138,10 +136,10 @@
 		}
 		.clear-btn {
 			position: absolute;
-			right: 6rem; // adjust if needed, depending on Sort button width
+			right: 6rem; 
 			background: none;
 			border: none;
-			color: var(--secondary-text);
+			color: var(--light__text);
 			font-size: 1.4rem;
 			padding: 0;
 			z-index: 2;
@@ -150,15 +148,17 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+            opacity: 0.8;
 		}
 		button:not(.clear-btn) {
 			background: rgb(189, 202, 220);
-			background: var(--bg-button-gray);
-			color: var(--secondary-text);
-			border: var(--border-gray-dark);
+			background: var(--gray__grad);
+			color: var(--light__text);
+			border: var(--gray__border);
 			padding: 1rem;
 			font-weight: 600;
 			height: 4rem;
+            font-size: 1.8rem;
 			border-radius: 0 4px 4px 0;
 		}
 	}
@@ -170,7 +170,7 @@
 		padding: 1.2rem 0;
 		font-size: 1.4rem;
 		background-color: #f6f6f6;
-		border-bottom: var(--border-gray-dark);
+		border-bottom: var(--gray__border);
 
 		p {
 			font-weight: 600;
@@ -179,7 +179,7 @@
 		label {
 			margin-right: 2rem;
 			cursor: pointer;
-			color: var(--secondary-text);
+			color: var(--light__text);
 
 			input {
 				margin-right: 0.2rem;

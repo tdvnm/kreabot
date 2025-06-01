@@ -16,6 +16,23 @@
 
   /* light */
   --light__text: #927F83;
+  --light__border: 1px solid #B58392;
+
+  /* grayscales */
+  --gray__bg: #F6F6F6;
+  --gray__border: 1px solid #999090;
+  --gray__text: #6B6B6B;
+  --gray__grad:linear-gradient(to bottom,
+      #FFFFFF 0%,
+      #e5e5e5 10%,
+      #dcdcdc 60%,
+      #c3c3c3 100%);
+  --gray__button-bg: linear-gradient(to bottom,
+      #FFFFFF 0%,
+      #F6F6F6 10%,
+      #F6F6F6 60%,
+      #F6F6F6 100%);
+
 
   /* peach */
   --peach__grad: linear-gradient(to bottom,
@@ -32,14 +49,8 @@
       #d2feff);
 
 
-  --bg-button-gray: linear-gradient(to bottom,
-      #FFFFFF 0%,
-      #e5e5e5 10%,
-      #dcdcdc 60%,
-      #c3c3c3 100%);
+  --bg-button-gray: 
 
-  --border-light: 1px solid #B58392;
-  --border-gray-dark: 1px solid #999090;
 
 }
 

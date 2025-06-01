@@ -11,7 +11,7 @@
 	export let position: string = 'Assistant Professor';
 	export let email: string = 'firstname.lastname@krea.edu.in';
 	export let location: string = 'room number';
-	export let office_hrs: string = 'office hours';
+	export let office_hours: string = 'office hours';
 	export let url: string = '/fac/' + name.replace(/\s+/g, '_').toLowerCase();
 	export const subject: string = 'subject name';
 
@@ -50,16 +50,16 @@
 		<!-- mail, location, office hours -->
 		<div class="details">
 			<p class="detail__child">
-				<Mail size="1.5rem" />
+				<Mail />
 				<span>{email}</span>
 			</p>
 			<p class="detail__child">
-				<Map size="1.5rem" />
+				<Map />
 				<span>{location}</span>
 			</p>
 			<p class="detail__child">
-				<Clock size="1.5rem" />
-				<span>{office_hrs}</span>
+				<Clock />
+				<span>{office_hours}</span>
 			</p>
 
 			<!-- buttons -->
@@ -196,7 +196,7 @@
 					}
 
 					&.edit {
-						background-color: #fbd0c333;
+						opacity: 0.8;
 					}
 
 					span {

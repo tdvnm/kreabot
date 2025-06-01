@@ -81,38 +81,6 @@
         min-height: 100vh;
         background: linear-gradient(to bottom, #fffcfc 0%, var(--main-bg) 30%);
 
-        .top-box {
-            display: grid;
-            grid-template-columns: 8rem 1fr;
-            gap: 1.6rem;
-
-			background-color: rgb(255, 255, 255);
-			padding: 1.6rem;
-			border: 1px solid #cfbcbc;
-            border-radius: 4px;
-            box-shadow: 0 4px 10px -4px rgba(144, 114, 114, 0.1);
-            padding: 1.4rem;
-
-            img {
-                width: 100%;
-                height: auto;
-                border-radius: 2px;
-            }
-
-            .info {
-                h2 {
-                    color: var(--main-text);
-                    font-size: 2.2rem;
-                    font-weight: 600;
-                }
-                h4 {
-                    color: var(--secondary-text);
-                    font-size: 1.6rem;
-                    font-weight: 400;
-                }
-            }
-        }
-
         .profile-grid {
             display: flex;
             flex-direction: column;
