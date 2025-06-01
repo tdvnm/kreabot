@@ -16,9 +16,9 @@
 <h2>Login</h2>
 
 {#if $user}
-  <h2 class="card-title">Welcome, {$user.displayName}</h2>
-  <p class="text-center text-success">You are logged in</p>
-  <button class="btn btn-warning" onclick={() => signOut(auth)}>Sign out</button>
+  <h2>Welcome, {$user.displayName}</h2>
+  <p>You are logged in</p>
+  <button onclick={() => signOut(auth)}>Sign out</button>
 {:else}
-  <button class="btn btn-primary" onclick={signInWithGoogle}>Sign in with Google</button>
+  <button onclick={signInWithGoogle}>Sign in with Google</button>
 {/if}

@@ -138,12 +138,11 @@
 		}
 		.clear-btn {
 			position: absolute;
-			right: 6.5rem; // adjust if needed, depending on Sort button width
+			right: 6rem; // adjust if needed, depending on Sort button width
 			background: none;
 			border: none;
 			color: var(--secondary-text);
 			font-size: 1.4rem;
-			cursor: pointer;
 			padding: 0;
 			z-index: 2;
 			height: 2.5rem;
