@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ProfHeaderCard from './ProfHeaderCard.svelte';
+	import ProfHeaderCard from './ProfHeaderCard.svelte';
 	import Container from '../Container.svelte';
 
 	export let data: {
@@ -76,39 +76,39 @@
 </main>
 
 <style>
-    main {
-        padding: 1.2rem;
-        min-height: 100vh;
-        background: linear-gradient(to bottom, #fffcfc 0%, var(--main-bg) 30%);
+	main {
+		padding: 1.2rem;
+		min-height: 100vh;
+		background: linear-gradient(to bottom, #fffcfc 0%, var(--main-bg) 30%);
 
-        .profile-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            color: var(--main-text);
-            padding: 1.2rem;
-            font-size: 1.4rem;
+		.profile-grid {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2rem;
+			color: var(--main-text);
+			padding: 1.2rem;
+			font-size: 1.4rem;
 
-            .detail-pair {
-                display: grid;
-                grid-template-columns: 1fr 2fr;
-                gap: 1.2rem;
-                margin-bottom: 0.6rem;
+			.detail-pair {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				gap: 1.2rem;
+				margin-bottom: 0.6rem;
 
-                .label {
-                    font-weight: 600;
-                    opacity: 0.75;
-                }
-                .value {
-                    white-space: pre-line;
-                    ul {
-                        list-style-type: none;
-                        li {
-                            margin-bottom: 0.5rem  ;
-                        }
-                    }
-                }
-            }
-        }
-    }
+				.label {
+					font-weight: 600;
+					opacity: 0.75;
+				}
+				.value {
+					white-space: pre-line;
+					ul {
+						list-style-type: none;
+						li {
+							margin-bottom: 0.5rem;
+						}
+					}
+				}
+			}
+		}
+	}
 </style>

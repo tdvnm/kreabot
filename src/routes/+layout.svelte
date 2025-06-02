@@ -6,7 +6,7 @@
 
 	$: headerText = (() => {
 		const segments = $page.url.pathname.replace(/^\/+/, '').split('/');
-		return segments.join('/') || 'prof';
+		return segments.join('/') || 'heading';
 	})();
 </script>
 

@@ -6,12 +6,14 @@
 	export let course_name: string;
 	export let timestamp: string;
 
-	export let overall: number;
+	export let difficulty: number;
 	export let workload: number;
 	export let grading: number;
 	export let clarity: number;
 
-	export let expectations: string;
+	export let take_again: string;
+	export let grade_recd: string;
+
 	export let structure: string;
 	export let prof_summary: string;
 </script>
@@ -26,8 +28,8 @@
 	<div class="container__content">
 		<div class="prof-feedback">
 			<div class="rating-box">
-				overall<br />
-				<span class="score">{overall}</span>
+				difficulty<br />
+				<span class="score">{difficulty}</span>
 			</div>
 			<div class="rating-box">
 				workload<br />
@@ -43,8 +45,10 @@
 			</div>
 
 			<div class="cell half">
-				<p class="heading-kinda">what to expect</p>
-				<p>{expectations}</p>
+				<p class="heading-kinda">grade received</p>
+				<p>{grade_recd}</p>
+				<p class="heading-kinda">would take again</p>
+				<p>{take_again}</p>
 			</div>
 			<div class="cell half">
 				<p class="heading-kinda">course structure</p>
@@ -64,7 +68,7 @@
 		width: 100%;
 		border: 1px solid #505357a1;
 		border-radius: 4px;
-		margin-top: 1.2rem;
+		margin-top: 1rem;
 
 		.container__header {
 			display: flex;
@@ -119,14 +123,15 @@
 				font-weight: 500;
 				font-size: 1.4rem;
 				color: #818890ce;
+
+				.score {
+					display: block;
+					font-size: 2.5rem;
+					font-weight: 800;
+					color: #697a8e;
+				}
 			}
 
-			.score {
-				display: block;
-				font-size: 2.5rem;
-				font-weight: 800;
-				color: #697a8e;
-			}
 			.cell {
 				padding: 10px;
 				background: white;
