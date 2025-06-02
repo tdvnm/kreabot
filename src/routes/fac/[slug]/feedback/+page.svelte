@@ -19,7 +19,7 @@
 	let prof_summary = '';
 
 	// Define an array with ratings from 1 to 5 in 0.5 increments
-	const ratingOptions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+	const ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	// ---------- UI State ----------
 	let message = '';
@@ -255,14 +255,36 @@
 			</div>
 		</div>
 
-		<!-- Feedback Textareas -->
+		<!-- Feedback Dropdowns -->
 		<div class="form-group">
-			<label>Course Planning / Structure Feedback:</label>
-			<textarea bind:value={structure} rows="3"></textarea>
+			<label>would take again</label>
+			<select bind:value={take_again}>
+				<option value="" disabled selected>Select an option</option>
+				<option value="yes">Yes</option>
+				<option value="no">No</option>
+				<option value="maybe">Maybe</option>
+			</select>
 		</div>
 		<div class="form-group">
-			<label>Expectations:</label>
-			<textarea bind:value={take_again} rows="3"></textarea>
+			<label>grade received</label>
+			<select bind:value={grade_recd}>
+				<option value="" disabled selected>Select grade</option>
+				<option value="A+">A+</option>
+				<option value="A">A</option>
+				<option value="A-">A-</option>
+				<option value="B+">B+</option>
+				<option value="B">B</option>
+				<option value="B-">B-</option>
+				<option value="C+">C+</option>
+				<option value="C">C</option>
+				<option value="C-">C-</option>
+				<option value="D">D</option>
+				<option value="F">F</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>course structure / planning</label>
+			<textarea bind:value={structure} rows="2"></textarea>
 		</div>
 		<div class="form-group">
 			<label>Professor/Course Summary:</label>
@@ -381,12 +403,21 @@
             display: none;
         }
         span {
-            font-size: 1.4rem;
+            font-size: 1rem;
         }
     }
 
     /* Remove double border between segments */
     .radio-rect:not(.last) {
         margin-right: -1px;
+    }
+
+    select {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+        font-size: 1rem;
     }
 </style>
