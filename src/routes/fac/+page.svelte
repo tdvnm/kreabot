@@ -129,7 +129,7 @@
 			border-radius: 4px 0 0 4px;
 			box-shadow: inset 0px 4px 6px 1px #c4ced868;
 			height: 4rem;
-			font-size: 1.4rem;
+			font-size: 1.5rem;
 		}
 		.clear-btn {
 			position: absolute;
