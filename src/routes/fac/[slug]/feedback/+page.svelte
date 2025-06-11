@@ -3,6 +3,7 @@
 	import { db } from '$lib/firebase';
 	import { collection, addDoc, doc, getDocs, query, where, orderBy } from 'firebase/firestore';
 	import { page } from '$app/stores';
+	import { getAuth } from "firebase/auth";
 
 	// Import child components
 	import ProfHeaderCard from '../ProfHeaderCard.svelte';
@@ -25,6 +26,7 @@
 	// ---------- UI State ----------
 	let message = '';
 	let professorId = '';
+	let hasSubmitted = false;
 
 	// ---------- Type Definitions ----------
 	type FeedbackItem = {
@@ -107,9 +109,18 @@
 		}
 
 		try {
+			const auth = getAuth();
+			const user = auth.currentUser;
+
+			if (!user) {
+				message = 'You must be logged in to submit feedback.';
+				return;
+			}
+
 			const professorRef = doc(db, 'professors', professorId);
 			const feedbackRef = collection(professorRef, 'feedback');
 			await addDoc(feedbackRef, {
+				userId: user.uid,
 				difficulty,
 				workload,
 				grading,
@@ -121,6 +132,9 @@
 				timestamp: new Date()
 			});
 			message = 'Feedback added successfully!';
+
+			// Immediately hide the form
+			hasSubmitted = true;
 
 			// Reset form fields
 			difficulty = '';
@@ -137,6 +151,21 @@
 			console.error(err);
 			message = 'Failed to add feedback.';
 		}
+	}
+
+	// ---------- Function: Check User Feedback ----------
+	// Checks if the current user has already submitted feedback for the professor
+	async function checkUserFeedback(profId: string) {
+		const auth = getAuth();
+		const currentUser = auth.currentUser;
+		if (!currentUser) return;
+
+		const professorRef = doc(db, 'professors', profId);
+		const feedbackRef = collection(professorRef, 'feedback');
+		const q = query(feedbackRef, where('userId', '==', currentUser.uid));
+		const snapshot = await getDocs(q);
+
+		hasSubmitted = !snapshot.empty;
 	}
 
 	// ---------- Function: Format Date ----------
@@ -160,6 +189,7 @@
 		}
 		if (professorId) {
 			loadFeedback(professorId);
+			checkUserFeedback(professorId);
 		}
 	}
 </script>
@@ -179,19 +209,23 @@
 	<h2>Add Feedback</h2>
 
 	<!-- Feedback Submission Form -->
-	<FeedbackForm
-		bind:difficulty
-		bind:workload
-		bind:grading
-		bind:clarity
-		bind:take_again
-		bind:grade_recd
-		bind:structure
-		bind:prof_summary
-		{message}
-		ratingOptions={[1, 2, 3, 4, 5]}
-		on:submit={handleSubmit}
-	/>
+	{#if !hasSubmitted}
+		<FeedbackForm
+			bind:difficulty
+			bind:workload
+			bind:grading
+			bind:clarity
+			bind:take_again
+			bind:grade_recd
+			bind:structure
+			bind:prof_summary
+			{message}
+			ratingOptions={[1, 2, 3, 4, 5]}
+			on:submit={handleSubmit}
+		/>
+	{:else}
+		<p>You have already submitted feedback for this professor.</p>
+	{/if}
 
 	<!-- Display a message if any -->
 	{#if message}
