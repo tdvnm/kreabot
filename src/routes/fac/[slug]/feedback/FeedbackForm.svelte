@@ -30,7 +30,7 @@
 	}
 </script>
 
-<Container heading="Feedback Form">
+<Container heading="feedback form">
 
 	<form on:submit={handleSubmit}>
 		<!-- Overall Rating -->
