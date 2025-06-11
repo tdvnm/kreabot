@@ -3,12 +3,16 @@
 	import { goto } from '$app/navigation';
 	import Header from '$lib/components/Header.svelte';
 	import { page } from '$app/stores'; // <-- import the page store
+	import AuthCheck from '$lib/components/AuthCheck.svelte';
 
 	$: headerText = (() => {
 		const segments = $page.url.pathname.replace(/^\/+/, '').split('/');
 		return segments.join('/') || 'heading';
 	})();
 </script>
+
+<AuthCheck>
+
 
 <div class="layout">
 	<Header heading="{headerText}/" />
@@ -21,6 +25,7 @@
 	</nav>
 </div>
 
+</AuthCheck>
 <style lang="scss">
 	.layout {
 		min-height: 100vh;
