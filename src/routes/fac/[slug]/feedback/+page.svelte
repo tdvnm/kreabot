@@ -189,6 +189,12 @@
 			checkUserFeedback(professorId);
 		}
 	}
+
+	// Show alert when message changes and is not empty
+	$: if (message) {
+		window.alert(message);
+		message = '';
+	}
 </script>
 
 <!-- ---------- Page Content ---------- -->
@@ -219,12 +225,7 @@
 			on:submit={handleSubmit}
 		/>
 	{:else}
-		<p>You have already submitted feedback for this professor.</p>
-	{/if}
-
-	<!-- Display a message if any -->
-	{#if message}
-		<p class="message">{message}</p>
+		<p></p>
 	{/if}
 
 	<!-- Feedback List -->
@@ -248,7 +249,7 @@
 
 <style lang="scss">
     main {
-        padding: 1rem;
+        padding: 1.2rem;
         background-color: #F4F6FA;
     }  
 </style>

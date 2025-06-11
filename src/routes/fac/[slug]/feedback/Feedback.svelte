@@ -68,7 +68,7 @@
 		width: 100%;
 		border: 1px solid #505357a1;
 		border-radius: 4px;
-		margin-top: 1rem;
+		margin-top: 1.2rem;
 
 		.container__header {
 			display: flex;
