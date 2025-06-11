@@ -20,9 +20,6 @@
 	let structure = '';
 	let prof_summary = '';
 
-	// Define an array with ratings from 1 to 5 in 0.5 increments
-	const ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 	// ---------- UI State ----------
 	let message = '';
 	let professorId = '';
@@ -112,10 +109,10 @@
 			const auth = getAuth();
 			const user = auth.currentUser;
 
-			if (!user) {
-				message = 'You must be logged in to submit feedback.';
-				return;
-			}
+		// 	if (!user) {
+		// 		message = 'You must be logged in to submit feedback.';
+		// 		return;
+		// 	}
 
 			const professorRef = doc(db, 'professors', professorId);
 			const feedbackRef = collection(professorRef, 'feedback');
@@ -206,8 +203,6 @@
 		/>
 	{/if}
 
-	<h2>Add Feedback</h2>
-
 	<!-- Feedback Submission Form -->
 	{#if !hasSubmitted}
 		<FeedbackForm
@@ -255,102 +250,5 @@
     main {
         padding: 1rem;
         background-color: #F4F6FA;
-    }
-
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1rem;
-
-        .form-group {
-            flex: 1 1 45%;
-        }
-
-        textarea,
-        button {
-            width: 100%;
-        }
-
-        .radio-group {
-            display: flex;
-        }
-    }
-
-    input, textarea {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    button {
-        padding: 0.5rem 1rem;
-        background: var(--primary-color, #007bff);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-
-        &:hover {
-            background: var(--primary-color-dark, #0056b3);
-        }
-    }
-
-    .message {
-        color: var(--secondary-text);
-        margin-top: 1rem
-    }
-
-    .radio-group.connected {
-        display: flex;
-    }
-
-    .radio-rect {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background: #eee;
-        border: var(--gray__border);
-        border-right: none;
-        padding: 0.5rem 1rem;
-        user-select: none;
-        transition: background 0.2s, border-color 0.2s;
-
-        &.first {
-            border-radius: 4px 0 0 4px;
-        }
-        &.last {
-            border-radius: 0 4px 4px 0;
-            border-right: 1px solid #ccc;
-        }
-        &.selected {
-            background: #b58392;
-            color: #fff;
-            border-color: #b58392;
-            z-index: 1;
-			box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        input[type="radio"] {
-            display: none;
-        }
-        span {
-            font-size: 1rem;
-        }
-    }
-
-    /* Remove double border between segments */
-    .radio-rect:not(.last) {
-        margin-right: -1px;
-    }
-
-    select {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: #fff;
-        font-size: 1rem;
-    }
+    }  
 </style>

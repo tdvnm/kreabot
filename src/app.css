@@ -22,7 +22,7 @@
   --gray__bg: #F6F6F6;
   --gray__border: 1px solid #999090;
   --gray__text: #6B6B6B;
-  --gray__grad:linear-gradient(to bottom,
+  --gray__grad: linear-gradient(to bottom,
       #FFFFFF 0%,
       #e5e5e5 10%,
       #dcdcdc 60%,
@@ -46,12 +46,7 @@
   --green__grad: linear-gradient(to top,
       #5db192bb 1%,
       #7fbeb2 55%,
-      #d2feff);
-
-
-  --bg-button-gray: 
-
-
+      #d2feff 100%);
 }
 
 * {

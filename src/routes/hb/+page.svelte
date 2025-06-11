@@ -9,7 +9,7 @@
 	});
 	import Sort from '$lib/components/icons/Sort.svelte';
 	import Delete from '$lib/components/icons/Delete.svelte';
-    import AuthCheck from '$lib/components/AuthCheck.svelte';
+	import AuthCheck from '$lib/components/AuthCheck.svelte';
 
 	export let data: {
 		subject: Record<string, Professor[]>;
@@ -42,12 +42,6 @@
 				)
 			: [];
 </script>
-<h1>Welcome to SvelteKit</h1>
-
-
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
-<AuthCheck />
 
 <div class="search-container">
 	<input

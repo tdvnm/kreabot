@@ -1,7 +1,6 @@
 <script lang="ts">
     import { user, auth } from '$lib/firebase';
-    import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-    import { onMount } from 'svelte';
+    import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
     async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
@@ -30,7 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 100vh;
     background: var(--main__bg-gradient, #F6EAEA);
 }
 

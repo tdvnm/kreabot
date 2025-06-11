@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let heading: string = 'mathematics';
+	export let heading: string = 'heading';
 	export let collapsible: boolean = true;
 	export let variant: 'default' | 'green' = 'default';
 	let isContentVisible: boolean = true;
@@ -49,7 +49,7 @@
 		width: 100%;
 		border: var(--main__border);
 		border-radius: 4px;
-		margin-top: 1rem;
+		margin-top: 1.2rem;
 
 		.container__header {
 			display: flex;

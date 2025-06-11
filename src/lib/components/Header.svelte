@@ -14,7 +14,7 @@
         display: flex;
         align-items: center;
         border-bottom: 1px solid #b58392;
-        padding: 2rem 1rem;
+        padding: 2rem 1.2rem;
 
         h2 {
             color: #996a78;
