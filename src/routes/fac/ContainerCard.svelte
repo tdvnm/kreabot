@@ -15,6 +15,9 @@
 	export let url: string = '/fac/' + name.replace(/\s+/g, '_').toLowerCase();
 	export const subject: string = 'subject name';
 
+	export let expanded: boolean = false;
+	export let onExpand: () => void = () => {};
+
 	const getInitials = (name: string): string => {
 		return name
 			.split(' ')
@@ -30,7 +33,7 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
-<section on:click={() => (is_expanded = !is_expanded)} class:is-expanded={is_expanded}>
+<section class:is-expanded={expanded} on:click={onExpand}>
 	<!-- image -->
 	{#if image_url}
 		<div class="card__image" style="background-image: url({image_url});"></div>
