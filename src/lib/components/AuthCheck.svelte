@@ -40,7 +40,6 @@
     font-size: 1.2rem;
     font-family: inherit;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     box-shadow: 0 1px 4px 0 #b5839220;
 }
 </style>
