@@ -98,7 +98,7 @@
 		grid-template-columns: 5.6rem 2fr;
 		gap: 1.4rem;
 
-		transition: all 0.3s ease;
+		transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1.5);
 
 		&.is-expanded {
 			background-color: #eee1e1;

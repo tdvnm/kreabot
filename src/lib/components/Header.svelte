@@ -40,7 +40,7 @@
             white-space: nowrap;
         }
         .sep {
-            margin: 0 0.1em;
+            margin: 0 0.1rem 0 -0.2rem;
             color: #b58392;
         }
     }
