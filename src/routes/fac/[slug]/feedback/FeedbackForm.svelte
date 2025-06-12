@@ -115,7 +115,7 @@
                         value="yes"
                         aria-label="yes"
                     />
-                    <span>Yes</span>
+                    <span>yes</span>
                 </label>
                 <label>
                     <input
@@ -125,7 +125,7 @@
                         value="no"
                         aria-label="no"
                     />
-                    <span>No</span>
+                    <span>no</span>
                 </label>
                 <label>
                     <input
@@ -135,7 +135,7 @@
                         value="maybe"
                         aria-label="maybe"
                     />
-                    <span>Maybe</span>
+                    <span>maybe</span>
                 </label>
             </div>
         </div>
@@ -218,14 +218,14 @@
       border: var(--light__border);
       border-radius: 4px;
       padding: 0 1rem;
-      box-shadow: 0 1px 2px 1px #b5839235 inset;
+      box-shadow: 0 1.5px 3px 1px #b5839223 inset;
     }
 
     input[type="radio"]:checked + span {
       background: var(--peach__grad, #FFD5BF);
       color: white;
       font-weight: 800;
-      box-shadow: 0 1px 4px 0 #b5839200 inset;
+      box-shadow: 0 1px 4px 2px #b5839200 inset;
     }
   }
 

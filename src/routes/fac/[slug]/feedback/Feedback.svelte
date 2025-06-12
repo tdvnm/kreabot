@@ -119,7 +119,7 @@
 
 			.rating-box {
 				padding: 10px;
-				background: #f9f9f9;
+				background: #ffffff;
 				font-weight: 500;
 				font-size: 1.4rem;
 				color: #818890ce;
