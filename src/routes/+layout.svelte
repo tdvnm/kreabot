@@ -2,20 +2,18 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import Header from '$lib/components/Header.svelte';
-	import { page } from '$app/stores'; // <-- import the page store
+	import { page } from '$app/stores';
 	import AuthCheck from '$lib/components/AuthCheck.svelte';
 
-	$: headerText = (() => {
-		const segments = $page.url.pathname.replace(/^\/+/, '').split('/');
-		return segments.join('/') || 'heading';
-	})();
+	$: segments = $page.url.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
+	$: paths = segments.map((_, i, arr) => '/' + arr.slice(0, i + 1).join('/'));
 </script>
 
 <AuthCheck>
 
 
 <div class="layout">
-	<Header heading="{headerText}/" />
+	<Header {segments} {paths} />
 	<slot />
 	<nav>
 		<button on:click={() => goto('/fac')}>faculty</button>

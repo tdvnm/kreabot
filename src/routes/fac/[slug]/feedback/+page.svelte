@@ -3,14 +3,14 @@
 	import { db } from '$lib/firebase';
 	import { collection, addDoc, doc, getDocs, query, where, orderBy } from 'firebase/firestore';
 	import { page } from '$app/stores';
-	import { getAuth } from "firebase/auth";
+	import { getAuth } from 'firebase/auth';
 
 	// Import child components
 	import ProfHeaderCard from '../ProfHeaderCard.svelte';
-	import Feedback from './Feedback.svelte';
 	import FeedbackForm from './FeedbackForm.svelte';
+	import Feedback from './Feedback.svelte';
 
-	// ---------- Form Field Variables ----------
+	// form field variables
 	let difficulty = '';
 	let workload = '';
 	let grading = '';
@@ -20,12 +20,12 @@
 	let structure = '';
 	let prof_summary = '';
 
-	// ---------- UI State ----------
+	// ui state
 	let message = '';
 	let professorId = '';
 	let hasSubmitted = false;
 
-	// ---------- Type Definitions ----------
+	// type definition for feedback items
 	type FeedbackItem = {
 		id: string;
 		difficulty?: string;
@@ -39,11 +39,11 @@
 		timestamp?: Date | null;
 	};
 
-	// ---------- Data Holders ----------
+	// data holders
 	let feedbackList: FeedbackItem[] = [];
 	let professor: any = null;
 
-	// Get the slug parameter from the URL using Svelte's page store
+	// get the slug parameter from the URL using Svelte's page store
 	$: slug = $page.params.slug;
 
 	// ---------- Function: Find Professor ----------
@@ -100,24 +100,20 @@
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
 
-		if (!professorId) {
-			message = 'Professor not found. Please check the URL.';
-			return;
-		}
-
 		try {
 			const auth = getAuth();
 			const user = auth.currentUser;
 
-		// 	if (!user) {
-		// 		message = 'You must be logged in to submit feedback.';
-		// 		return;
-		// 	}
+			if (!user) {
+				message = 'You must be logged in to submit feedback.';
+				return;
+			}
 
 			const professorRef = doc(db, 'professors', professorId);
 			const feedbackRef = collection(professorRef, 'feedback');
 			await addDoc(feedbackRef, {
 				userId: user.uid,
+				userName: user.displayName || 'anonymous',
 				difficulty,
 				workload,
 				grading,
@@ -130,10 +126,10 @@
 			});
 			message = 'Feedback added successfully!';
 
-			// Immediately hide the form
+			// immediately hide the form
 			hasSubmitted = true;
 
-			// Reset form fields
+			// reset form fields
 			difficulty = '';
 			workload = '';
 			grading = '';
@@ -142,7 +138,7 @@
 			structure = '';
 			prof_summary = '';
 
-			// Reload the feedback list
+			// reload the feedback list
 			loadFeedback(professorId);
 		} catch (err) {
 			console.error(err);
@@ -150,8 +146,7 @@
 		}
 	}
 
-	// ---------- Function: Check User Feedback ----------
-	// Checks if the current user has already submitted feedback for the professor
+// cehck if user already submitted feedback
 	async function checkUserFeedback(profId: string) {
 		const auth = getAuth();
 		const currentUser = auth.currentUser;
@@ -165,8 +160,7 @@
 		hasSubmitted = !snapshot.empty;
 	}
 
-	// ---------- Function: Format Date ----------
-	// Converts a Date object to a more readable string format
+// readable timestamp
 	function formatDate(date: Date): string {
 		const options: Intl.DateTimeFormatOptions = {
 			year: 'numeric',
@@ -178,8 +172,8 @@
 		return date.toLocaleDateString(undefined, options);
 	}
 
-	// ---------- Reactive Block ----------
-	// When the slug changes, try to find a professor; when professorId is set, load feedback.
+	// when the slug changes, try to find a professor
+	// when professorId is set, load feedback.
 	$: {
 		if (slug) {
 			findProfessorByUrl(slug);
@@ -190,16 +184,13 @@
 		}
 	}
 
-	// Show alert when message changes and is not empty
 	$: if (message) {
-		window.alert(message);
+		console.log('Alert:', message);
 		message = '';
 	}
 </script>
 
-<!-- ---------- Page Content ---------- -->
 <main>
-	<!-- Display the professor header if data is available -->
 	{#if professor}
 		<ProfHeaderCard
 			image_url={professor.image_url}
@@ -209,7 +200,6 @@
 		/>
 	{/if}
 
-	<!-- Feedback Submission Form -->
 	{#if !hasSubmitted}
 		<FeedbackForm
 			bind:difficulty
@@ -220,7 +210,6 @@
 			bind:grade_recd
 			bind:structure
 			bind:prof_summary
-			{message}
 			ratingOptions={[1, 2, 3, 4, 5]}
 			on:submit={handleSubmit}
 		/>
@@ -228,7 +217,6 @@
 		<p></p>
 	{/if}
 
-	<!-- Feedback List -->
 	<div>
 		{#each feedbackList as fb (fb.id)}
 			<Feedback
@@ -248,8 +236,9 @@
 </main>
 
 <style lang="scss">
-    main {
-        padding: 1.2rem;
-        background-color: #F4F6FA;
-    }  
+	main {
+		padding: 1.2rem;
+		background-color: #f4f6fa;
+		min-height: 90vh;
+	}
 </style>

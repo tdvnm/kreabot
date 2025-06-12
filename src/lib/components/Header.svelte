@@ -1,9 +1,24 @@
 <script lang="ts">
-    export let heading: string = 'page heading';
+    import { goto } from '$app/navigation';
+    export let segments: string[] = [];
+    export let paths: string[] = [];
 </script>
 
 <div>
-    <h2>{heading}</h2>
+    <h2>
+        {#each segments as segment, i}
+            <span
+                class="breadcrumb"
+                style="cursor: pointer;"
+                on:click={() => goto(paths[i])}
+            >
+                {segment}
+            </span>
+            {#if i < segments.length - 1}
+                <span class="sep">/</span>
+            {/if}
+        {/each}
+    </h2>
 </div>
 
 <style lang="scss">
@@ -23,6 +38,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        .sep {
+            margin: 0 0.1em;
+            color: #b58392;
         }
     }
 </style>

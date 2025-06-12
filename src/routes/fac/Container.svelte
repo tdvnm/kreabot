@@ -2,7 +2,7 @@
 	export let heading: string = 'heading';
 	export let collapsible: boolean = true;
 	export let variant: 'default' | 'green' = 'default';
-	let isContentVisible: boolean = true;
+	export let isContentVisible: boolean = true;
 
 	// Unique key per heading for localStorage
 	const storageKey = `container-visible-${heading.replace(/\s+/g, '_').toLowerCase()}`;
@@ -21,9 +21,10 @@
 			localStorage.setItem(storageKey, String(isContentVisible));
 		}
 	}
+
 </script>
 
-<div class="container {variant}">
+<div class="container {variant}" >
 	<div class="container__header" on:click={toggleContent}>
 		<div class="heading">
 			{#if $$slots.icon}
@@ -106,5 +107,11 @@
 		justify-content: center;
 		font-size: 2rem;
 		font-weight: bold;
+	}
+
+	:is-expanded {
+		.container {
+			border-color: blue;
+		}
 	}
 </style>

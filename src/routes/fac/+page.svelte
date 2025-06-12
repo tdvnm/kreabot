@@ -37,6 +37,8 @@
 							prof.subject.toLowerCase().includes(searchQuery.toLowerCase()))
 				)
 			: [];
+
+	let expandedProfId: string | null = null;
 </script>
 
 <!-- Search + Filter -->
@@ -81,7 +83,14 @@
 				</span>
 
 				{#each searchResult.filter((prof) => prof.id && prof.name && prof.subject) as prof (prof.id)}
-					<ContainerCard {...prof} position={`${prof.position}, ${prof.subject}`} />
+					<ContainerCard
+						{...prof}
+						position={`${prof.position}, ${prof.subject}`}
+						expanded={expandedProfId === prof.id}
+						onExpand={() => {
+							expandedProfId = expandedProfId === prof.id ? null : prof.id;
+						}}
+					/>
 				{/each}
 			</Container>
 		{:else}
@@ -91,7 +100,13 @@
 		{#each Object.entries(data.subject) as [subject, professors]}
 			<Container heading={`${subject} (${professors.length})`}>
 				{#each professors as prof (prof.id)}
-					<ContainerCard {...prof} />
+					<ContainerCard
+						{...prof}
+						expanded={expandedProfId === prof.id}
+						onExpand={() => {
+							expandedProfId = expandedProfId === prof.id ? null : prof.id;
+						}}
+					/>
 				{/each}
 			</Container>
 		{/each}
@@ -100,7 +115,14 @@
 			{#if data.alphabetical.some((p) => p.name[0].toUpperCase() === letter)}
 				<Container heading={letter}>
 					{#each data.alphabetical.filter((p) => p.name[0].toUpperCase() === letter) as prof (prof.id)}
-						<ContainerCard {...prof} position={`${prof.position}, ${prof.subject}`} />
+						<ContainerCard
+							{...prof}
+							position={`${prof.position}, ${prof.subject}`}
+							expanded={expandedProfId === prof.id}
+							onExpand={() => {
+								expandedProfId = expandedProfId === prof.id ? null : prof.id;
+							}}
+						/>
 					{/each}
 				</Container>
 			{/if}

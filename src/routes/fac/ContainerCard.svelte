@@ -8,7 +8,7 @@
 
 	export let name: string = 'professor name';
 	export let image_url: string;
-	export let position: string = 'Assistant Professor';
+	export let position: string = 'assistant Professor';
 	export let email: string = 'firstname.lastname@krea.edu.in';
 	export let location: string = 'room number';
 	export let office_hours: string = 'office hours';

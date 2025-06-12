@@ -10,7 +10,6 @@
 	export let grade_recd = '';
 	export let structure = '';
 	export let prof_summary = '';
-	export let message = '';
 	export let ratingOptions = [1, 2, 3, 4, 5];
 
 	const dispatch = createEventDispatcher();
@@ -30,7 +29,7 @@
 	}
 </script>
 
-<Container heading="feedback form">
+<Container heading="feedback form" isContentVisible={false}>
 
 	<form on:submit={handleSubmit}>
 		<!-- Overall Rating -->
@@ -166,9 +165,6 @@
 
 		<button type="submit">Submit Feedback</button>
 
-		{#if message}
-			<p class="message">{message}</p>
-		{/if}
 	</form>
 </Container>
 
