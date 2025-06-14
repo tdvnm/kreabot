@@ -46,7 +46,7 @@
 <div class="search-container">
 	<input
 		type="text"
-		placeholder="search for professor or department ..."
+		placeholder="search for stuff"
 		bind:value={searchQuery}
 	/>
 	{#if searchQuery}
@@ -69,7 +69,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		padding: 1rem;
+		padding: 1.2rem;
 		background: linear-gradient(to top, #e9e9e9 0%, #f6f6f6 100%);
 		box-shadow: 0px 2px 6px -2px rgba(99, 76, 76, 0.25);
 		border-bottom: var(--gray__border);

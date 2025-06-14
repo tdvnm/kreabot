@@ -10,20 +10,18 @@
 </script>
 
 <AuthCheck>
-
-
-<div class="layout">
-	<Header {segments} {paths} />
-	<slot />
-	<nav>
-		<button on:click={() => goto('/fac')}>faculty</button>
-		<button on:click={() => goto('/crs')}>courses</button>
-		<button on:click={() => goto('/hb')}>handbook</button>
-		<button on:click={() => goto('/set')}>settings</button>
-	</nav>
-</div>
-
+	<div class="layout">
+		<Header {segments} {paths} />
+		<slot />
+		<nav>
+			<button on:click={() => goto('/fac')}>faculty</button>
+			<button on:click={() => goto('/crs')}>courses</button>
+			<button on:click={() => goto('/hb')}>handbook</button>
+			<button on:click={() => goto('/set')}>settings</button>
+		</nav>
+	</div>
 </AuthCheck>
+
 <style lang="scss">
 	.layout {
 		min-height: 100vh;

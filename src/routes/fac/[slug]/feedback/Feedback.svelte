@@ -45,8 +45,10 @@
 			</div>
 
 			<div class="cell half">
-				<p><span class="heading-kinda">grade received</span>  
-				{grade_recd}</p>
+				<p>
+					<span class="heading-kinda">grade received</span>
+					{grade_recd}
+				</p>
 				<p class="heading-kinda">would take again</p>
 				<p>{take_again}</p>
 			</div>
@@ -74,7 +76,7 @@
 			display: flex;
 			flex-direction: row;
 			padding: 0.5rem 0.8rem;
-			background: linear-gradient(to bottom, #f9fbff 1%, #ebf2ff 10%, #ebf2ff 45%, #b5cceb 100%);
+			background: linear-gradient(to bottom, #ffffff 1%, #CFEEFF 10%, #98C7FF 85%, #98C7FF 100%);
 			border-bottom: 1px solid #3d4146a1;
 
 			border-radius: 4px 4px 0 0;
@@ -86,7 +88,7 @@
 				width: 100%;
 
 				h1 {
-					color: rgba(60, 65, 77, 0.621);
+					color: rgba(45, 50, 63, 0.6);
 					font-size: 1.6rem;
 					font-weight: 600;
 					margin: 0;

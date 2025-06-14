@@ -35,12 +35,12 @@
 
             .info {
                 h2 {
-                    color: var(--main-text);
+                    color: var(--main__text);
                     font-size: 2.2rem;
                     font-weight: 600;
                 }
                 h4 {
-                    color: var(--secondary-text);
+                    color: var(--light__text);
                     font-size: 1.6rem;
                     font-weight: 400;
                 }

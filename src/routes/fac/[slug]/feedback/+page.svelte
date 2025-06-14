@@ -238,7 +238,7 @@
 <style lang="scss">
 	main {
 		padding: 1.2rem 1.2rem 5rem 1.2rem;
-		background-color: #f4f6fa;
+		background-color: #f3f7fd;
 		min-height: 100vh;
 	}
 </style>
