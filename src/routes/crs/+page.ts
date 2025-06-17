@@ -1,5 +1,3 @@
-export const prerender = true;
-
 import type { PageLoad } from '@sveltejs/kit';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '$lib/firebase';
@@ -8,12 +6,34 @@ type Course = {
     id: string;
     code: string;
     title: string;
-    instructor: string[];
+    description: string;
     credits: number;
-    is_req: boolean;
-    years: string;
+    elig_years: string;
+    faculty: string;
+    is_req: string; // "Required" or "Elective"
+    year_trim?: string;
     subject?: string;
 };
+
+function getSubjectFromCode(code: string): string {
+    if (!code) return 'Other';
+    code = code.toUpperCase();
+    if (code.includes('PHYS')) return 'physics';
+    if (code.includes('POLT')) return 'political Science';
+    if (code.includes('BIOS')) return 'biological Sciences';
+    if (code.includes('CHEM')) return 'chemistry';
+    if (code.includes('ECON')) return 'economics';
+    if (code.includes('HIST')) return 'history';
+    if (code.includes('PSYC')) return 'psychology';
+    if (code.includes('LITT')) return 'literature';
+    if (code.includes('ARTS')) return 'art';
+    if (code.includes('DATA')) return 'data Science';
+    if (code.includes('MATH')) return 'mathematics';
+    if (code.includes('COMP')) return 'computer Science';
+    if (code.includes('PHIL')) return 'philosophy';
+    if (code.includes('ENVS')) return 'environmental Science';
+    return 'Other';
+}
 
 export const load: PageLoad = async () => {
     const collectionRef = collection(db, 'courses');
@@ -26,29 +46,15 @@ export const load: PageLoad = async () => {
             id: doc.id,
             code: d.code,
             title: d.title,
-            instructor: d.instructor,
+            description: d.description,
             credits: d.credits,
+            elig_years: d.elig_years,
+            faculty: d.faculty,
             is_req: d.is_req,
-            years: d.years,
-            subject: d.subject || ''
+            year_trim: d.year_trim,
+            subject: d.subject || getSubjectFromCode(d.code)
         });
     });
-
-    // Group by minimum year
-    const byYear: Record<string, Course[]> = {};
-    allCourses.forEach((course) => {
-        const years = course.years.split(',').map((y: string) => Number(y.trim()));
-        const minYear = Math.min(...years).toString();
-        if (!byYear[minYear]) byYear[minYear] = [];
-        byYear[minYear].push(course);
-    });
-    // Sort by subject (and then by title) within each year
-    for (const year in byYear) {
-        byYear[year].sort((a, b) =>
-            (a.subject || '').localeCompare(b.subject || '') ||
-            a.title.localeCompare(b.title)
-        );
-    }
 
     // Group by subject
     const bySubject: Record<string, Course[]> = {};
@@ -61,8 +67,8 @@ export const load: PageLoad = async () => {
         bySubject[subject].sort((a, b) => a.title.localeCompare(b.title));
     }
 
+
     return {
-        byYear,
-        bySubject
+        bySubject,
     };
 };

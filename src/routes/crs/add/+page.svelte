@@ -8,11 +8,21 @@
     let credits = '';
     let is_req = false;
     let years = '';
+    let year_trim = '';
     let subject = '';
+    let description = '';
     let message = '';
 
     async function handleSubmit(event: Event) {
         event.preventDefault();
+        if (!subject.trim()) {
+            message = 'Subject is required.';
+            return;
+        }
+        if (!credits || isNaN(Number(credits))) {
+            message = 'Credits is required and must be a number.';
+            return;
+        }
         try {
             await addDoc(collection(db, 'courses'), {
                 code,
@@ -20,11 +30,13 @@
                 instructor: instructor.split(',').map(s => s.trim()).filter(Boolean),
                 credits: Number(credits),
                 is_req,
-                years,
-                subject
+                elig_years: years,
+                year_trim,
+                subject,
+                description
             });
             message = 'Course added!';
-            code = title = instructor = '';
+            code = title = instructor = description = '';
             is_req = false;
         } catch (e) {
             message = 'Error adding course.';
@@ -64,8 +76,18 @@
     </label>
     <br />
     <label>
+        Year Trim:<br />
+        <input bind:value={year_trim} />
+    </label>
+    <br />
+    <label>
         Subject:<br />
-        <input bind:value={subject} />
+        <input bind:value={subject} required />
+    </label>
+    <br />
+    <label>
+        Description:<br />
+        <textarea bind:value={description} rows="3"></textarea>
     </label>
     <br />
     <button type="submit">Add Course</button>
