@@ -21,10 +21,9 @@
 			localStorage.setItem(storageKey, String(isContentVisible));
 		}
 	}
-
 </script>
 
-<div class="container {variant}" >
+<div class="container {variant}">
 	<div class="container__header" on:click={toggleContent}>
 		<div class="heading">
 			{#if $$slots.icon}
@@ -91,7 +90,7 @@
 
 		.container__content {
 			padding: 0rem;
-			background-color: #ffffff;
+			background-color: var(--container__bg);
 			border-radius: 0 0 4px 4px;
 		}
 	}

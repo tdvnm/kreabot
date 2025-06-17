@@ -90,7 +90,7 @@
 <style lang="scss">
 	section {
 		padding: 1rem;
-		background-color: #fff;
+		background-color: var(--container__bg);
 		border-top: var(--main__border);
 		border-radius: 0 0 4px 4px;
 
@@ -101,13 +101,8 @@
 		transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1.5);
 
 		&.is-expanded {
-			background-color: #eee1e1;
-			background: linear-gradient(
-				to bottom,
-				rgba(247, 224, 220, 0.5) 1%,
-				rgba(255, 247, 247, 0.5) 40%,
-				rgba(255, 255, 255, 0.2) 100%
-			);
+			background-color: var(--container__bg);
+			background: var(--container__grad);
 		}
 
 		.card__image {

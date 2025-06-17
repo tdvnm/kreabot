@@ -18,20 +18,26 @@ type Course = {
 function getSubjectFromCode(code: string): string {
     if (!code) return 'Other';
     code = code.toUpperCase();
-    if (code.includes('PHYS')) return 'physics';
-    if (code.includes('POLT')) return 'political Science';
-    if (code.includes('BIOS')) return 'biological Sciences';
-    if (code.includes('CHEM')) return 'chemistry';
-    if (code.includes('ECON')) return 'economics';
-    if (code.includes('HIST')) return 'history';
-    if (code.includes('PSYC')) return 'psychology';
-    if (code.includes('LITT')) return 'literature';
-    if (code.includes('ARTS')) return 'art';
-    if (code.includes('DATA')) return 'data Science';
-    if (code.includes('MATH')) return 'mathematics';
-    if (code.includes('COMP')) return 'computer Science';
-    if (code.includes('PHIL')) return 'philosophy';
-    if (code.includes('ENVS')) return 'environmental Science';
+    const firstPart = code.split(/[|,&]/)[0].trim();
+
+    if (firstPart.includes('COMP')) return 'computer science';
+    if (firstPart.includes('MATH')) return 'mathematics';
+    if (firstPart.includes('POLT')) return 'political science';
+    if (firstPart.includes('SOCL')) return 'sociology';
+    if (firstPart.includes('PHYS')) return 'physics';
+    if (firstPart.includes('CHEM')) return 'chemistry';
+    if (firstPart.includes('BIOS')) return 'biology';
+    if (firstPart.includes('ECON')) return 'economics';
+    if (firstPart.includes('HIST')) return 'history';
+    if (firstPart.includes('PSYC')) return 'psychology';
+    if (firstPart.includes('ARTS')) return 'arts';
+    if (firstPart.includes('PHIL')) return 'philosophy';
+    if (firstPart.includes('BUSI')) return 'business';
+    if (firstPart.includes('DATA')) return 'data science';
+    if (firstPart.includes('LITT')) return 'literature';
+    if (firstPart.includes('ENVS')) return 'environmental science';
+
+
     return 'Other';
 }
 

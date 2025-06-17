@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
 
 :root {
+
+  --main__padding: 0 12px 5rem;
   --main__bg: #F6EAEA;
   --main__border: 1px solid #996A78;
   --main__text: #623A52;
@@ -41,12 +43,44 @@
       #FFC7B1 60%,
       #FFC0B0 100%);
 
+  --container__grad: linear-gradient(to bottom,
+      rgba(247, 224, 220, 0.5) 1%,
+      rgba(255, 247, 247, 0.5) 40%,
+      rgba(255, 255, 255, 0.2) 100%);
   /* green */
   --green__border: #162922 1px solid;
   --green__grad: linear-gradient(to top,
       #5db192bb 1%,
       #7fbeb2 55%,
       #d2feff 100%);
+  --container__bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --main__bg: #414146;
+  --main__border: 1px solid #1a1a1b;
+  --main__text: #e4e7ea;
+  --main__bg-gradient: linear-gradient(to bottom, #18141a 0%, #18141a 100%);
+  --dark__border: 1px solid #2b2829a4;
+  --light__text: #aaadb4;
+  --light__border: 1px solid #7c4b69a4;
+  --gray__bg: #232025;
+  --gray__border: 1px solid #3a2a36;
+  --gray__text: #bdbdbd;
+  --gray__grad: linear-gradient(to bottom, #232025 0%, #232025 100%);
+  --gray__button-bg: linear-gradient(to bottom, #232025 0%, #232025 100%);
+  --peach__grad: linear-gradient(to bottom,
+      #d2daed 0%,
+      #586275 10%,
+      #455468 70%,
+      #3a4054 100%);
+  --green__border: #3a4a42 1px solid;
+  --green__grad: linear-gradient(to top, #3a4a42 1%, #5db192bb 55%, #7fbeb2 100%);
+  --container__grad: linear-gradient(to bottom,
+      rgba(15, 15, 15, 0.8) 1%,
+      rgba(36, 34, 34, 0.8) 40%,
+      rgba(54, 54, 58, 0.4) 100%);
+  --container__bg: #252629c7;
 }
 
 * {

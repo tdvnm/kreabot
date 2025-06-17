@@ -7,6 +7,8 @@
 
 	$: segments = $page.url.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
 	$: paths = segments.map((_, i, arr) => '/' + arr.slice(0, i + 1).join('/'));
+
+	
 </script>
 
 <AuthCheck>
@@ -18,6 +20,7 @@
 			<button on:click={() => goto('/crs')}>courses</button>
 			<button on:click={() => goto('/hb')}>handbook</button>
 			<button on:click={() => goto('/set')}>settings</button>
+			
 		</nav>
 	</div>
 </AuthCheck>
