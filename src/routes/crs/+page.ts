@@ -30,7 +30,7 @@ function getSubjectFromCode(code: string): string {
     if (firstPart.includes('ECON')) return 'economics';
     if (firstPart.includes('HIST')) return 'history';
     if (firstPart.includes('PSYC')) return 'psychology';
-    if (firstPart.includes('ARTS')) return 'arts';
+    if (firstPart.includes('ARTS')) return 'global arts';
     if (firstPart.includes('PHIL')) return 'philosophy';
     if (firstPart.includes('BUSI')) return 'business';
     if (firstPart.includes('DATA')) return 'data science';

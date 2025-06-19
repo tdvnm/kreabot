@@ -7,8 +7,6 @@
 
 	$: segments = $page.url.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
 	$: paths = segments.map((_, i, arr) => '/' + arr.slice(0, i + 1).join('/'));
-
-	
 </script>
 
 <AuthCheck>
@@ -20,7 +18,6 @@
 			<button on:click={() => goto('/crs')}>courses</button>
 			<button on:click={() => goto('/hb')}>handbook</button>
 			<button on:click={() => goto('/set')}>settings</button>
-			
 		</nav>
 	</div>
 </AuthCheck>
@@ -44,7 +41,10 @@
 			max-width: 580px;
 			display: flex;
 			justify-content: space-around;
-			background-color: #ffffff;
+			background: rgba(255, 255, 255, 0.7); /* semi-transparent */
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px); /* for Safari */
+			z-index: 100;
 			padding: 10px 0;
 			border-top: 1px solid #ccc;
 			z-index: 100;

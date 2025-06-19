@@ -7,6 +7,7 @@
 	import ProfHeaderCard from '../ProfHeaderCard.svelte';
 	import FeedbackForm from './FeedbackForm.svelte';
 	import Feedback from './Feedback.svelte';
+	import AveragesTable from './AveragesTable.svelte';
 
 	let formFields = {
 		course_code: '',
@@ -56,7 +57,7 @@
 		try {
 			const feedbackRef = collection(doc(db, 'professors', professorId), 'feedback');
 			const snap = await getDocs(query(feedbackRef, orderBy('timestamp', 'desc')));
-			feedbackList = snap.docs.map(doc => {
+			feedbackList = snap.docs.map((doc) => {
 				const d = doc.data();
 				return {
 					id: doc.id,
@@ -113,7 +114,7 @@
 		try {
 			const snap = await getDocs(collection(db, 'courses'));
 			courseCodes = snap.docs
-				.map(doc => doc.data().code)
+				.map((doc) => doc.data().code)
 				.filter(Boolean)
 				.sort((a, b) => a.localeCompare(b)); // Sort alphabetically
 			console.log('Loaded course codes:', courseCodes);
@@ -122,7 +123,6 @@
 		}
 	}
 
-	// Load courses on component mount
 	loadCourseCodes();
 
 	// readable timestamp
@@ -136,10 +136,15 @@
 		});
 	}
 
-	// Calculate average difficulty
-	$: averageDifficulty = feedbackList.length 
-		? (feedbackList.reduce((sum, fb) => sum + Number(fb.difficulty), 0) / feedbackList.length).toFixed(1)
-		: 'No ratings yet';
+	function avg(key: string) {
+		if (!Array.isArray(feedbackList) || !feedbackList.length) return '';
+		const nums = feedbackList
+			.map((fb) => Number(fb?.[key]))
+			.filter((n) => typeof n === 'number' && !isNaN(n));
+		return nums.length
+			? (nums.reduce((sum, n) => sum + n, 0) / nums.length).toFixed(1)
+			: '';
+	}
 
 	// when the slug changes, try to find a professor
 	// when professorId is set, load feedback.
@@ -167,10 +172,13 @@
 			position={professor.position}
 			subject={professor.subject}
 		/>
-		
-		<p class="average-difficulty">
-			Average Difficulty: {averageDifficulty}
-		</p>
+
+		<AveragesTable
+			averageDifficulty={avg('difficulty')}
+			averageWorkload={avg('workload')}
+			averageGrading={avg('grading')}
+			averageClarity={avg('clarity')}
+		/>
 	{/if}
 
 	{#if !hasSubmitted}
@@ -185,7 +193,7 @@
 			bind:structure={formFields.structure}
 			bind:prof_summary={formFields.prof_summary}
 			ratingOptions={[1, 2, 3, 4, 5]}
-			courseCodes={courseCodes}
+			{courseCodes}
 			on:submit={handleSubmit}
 		/>
 	{/if}
@@ -211,20 +219,8 @@
 
 <style lang="scss">
 	main {
-		padding: 1.2rem 1.2rem 5rem 1.2rem;
+		padding: 12px 12px 5rem;
 		background-color: #f3f7fd;
 		min-height: 100vh;
-	}
-
-	.average-difficulty {
-		text-align: center;
-		font-size: 1.6rem;
-		font-weight: 600;
-		color: var(--main__text);
-		margin: 1rem 0;
-		padding: 1rem;
-		background: white;
-		border-radius: 4px;
-		box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 	}
 </style>
