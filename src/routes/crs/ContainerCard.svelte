@@ -4,6 +4,7 @@
     export let faculty: string;
     export let is_req: string;
     export let title: string;
+    export let description: string;
 </script>
 
 <section class="course-card">
@@ -12,6 +13,7 @@
     <div><strong>Credits:</strong> {credits}</div>
     <div><strong>Faculty:</strong> {faculty}</div>
     <div><strong>Type:</strong> {is_req}</div>
+    <div><strong>Description:</strong> {description}</div>
 </section>
 
 <style>

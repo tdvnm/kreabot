@@ -1,47 +1,33 @@
 <script lang="ts">
-	// Import Firestore functions and Svelte stores
 	import { db } from '$lib/firebase';
 	import { collection, addDoc, doc, getDocs, query, where, orderBy } from 'firebase/firestore';
 	import { page } from '$app/stores';
 	import { getAuth } from 'firebase/auth';
 
-	// Import child components
 	import ProfHeaderCard from '../ProfHeaderCard.svelte';
 	import FeedbackForm from './FeedbackForm.svelte';
 	import Feedback from './Feedback.svelte';
 
-	// form field variables
-	let difficulty = '';
-	let workload = '';
-	let grading = '';
-	let clarity = '';
-	let take_again = '';
-	let grade_recd = '';
-	let structure = '';
-	let prof_summary = '';
-
-	// ui state
-	let message = '';
-	let professorId = '';
-	let hasSubmitted = false;
-
-	// type definition for feedback items
-	type FeedbackItem = {
-		id: string;
-		difficulty?: string;
-		workload?: string;
-		grading?: string;
-		clarity?: string;
-		take_again?: string;
-		grade_recd?: string;
-		structure?: string;
-		prof_summary?: string;
-		timestamp?: Date | null;
+	let formFields = {
+		course_code: '',
+		difficulty: '',
+		workload: '',
+		grading: '',
+		clarity: '',
+		take_again: '',
+		grade_recd: '',
+		structure: '',
+		prof_summary: ''
 	};
 
-	// data holders
-	let feedbackList: FeedbackItem[] = [];
+	// ui state
+	let professorId = '';
 	let professor: any = null;
+	let feedbackList: any[] = [];
+	let hasSubmitted = false;
+	let message = '';
+
+	let courseCodes: string[] = [];
 
 	// get the slug parameter from the URL using Svelte's page store
 	$: slug = $page.params.slug;
@@ -66,32 +52,21 @@
 
 	// ---------- Function: Load Feedback ----------
 	// Loads feedback for a given professor ID from a subcollection and orders them by timestamp
-	async function loadFeedback(profId: string) {
+	async function loadFeedback() {
 		try {
-			const professorRef = doc(db, 'professors', profId);
-			const feedbackRef = collection(professorRef, 'feedback');
-			const q = query(feedbackRef, orderBy('timestamp', 'desc'));
-			const snapshot = await getDocs(q);
-
-			feedbackList = snapshot.docs.map((doc) => {
-				const data = doc.data();
-				const timestamp = data.timestamp ? new Date(data.timestamp.seconds * 1000) : null;
+			const feedbackRef = collection(doc(db, 'professors', professorId), 'feedback');
+			const snap = await getDocs(query(feedbackRef, orderBy('timestamp', 'desc')));
+			feedbackList = snap.docs.map(doc => {
+				const d = doc.data();
 				return {
 					id: doc.id,
-					difficulty: data.difficulty,
-					workload: data.workload,
-					grading: data.grading,
-					clarity: data.clarity,
-					take_again: data.take_again,
-					grade_recd: data.grade_recd,
-					structure: data.structure,
-					prof_summary: data.prof_summary,
-					timestamp
+					...d,
+					timestamp: d.timestamp ? new Date(d.timestamp.seconds * 1000) : null
 				};
 			});
-		} catch (error) {
-			console.error('Error loading feedback:', error);
+		} catch (e) {
 			message = 'Failed to load feedback.';
+			console.error(e);
 		}
 	}
 
@@ -99,77 +74,66 @@
 	// Submits the feedback form to Firestore and reloads the feedback list
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
-
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (!user) {
+			message = 'You must be logged in to submit feedback.';
+			return;
+		}
 		try {
-			const auth = getAuth();
-			const user = auth.currentUser;
-
-			if (!user) {
-				message = 'You must be logged in to submit feedback.';
-				return;
-			}
-
-			const professorRef = doc(db, 'professors', professorId);
-			const feedbackRef = collection(professorRef, 'feedback');
+			const feedbackRef = collection(doc(db, 'professors', professorId), 'feedback');
 			await addDoc(feedbackRef, {
 				userId: user.uid,
 				userName: user.displayName || 'anonymous',
-				difficulty,
-				workload,
-				grading,
-				clarity,
-				take_again,
-				grade_recd,
-				structure,
-				prof_summary,
+				...formFields,
 				timestamp: new Date()
 			});
-			message = 'Feedback added successfully!';
-
-			// immediately hide the form
 			hasSubmitted = true;
-
-			// reset form fields
-			difficulty = '';
-			workload = '';
-			grading = '';
-			clarity = '';
-			take_again = '';
-			structure = '';
-			prof_summary = '';
-
-			// reload the feedback list
-			loadFeedback(professorId);
+			await loadFeedback();
+			message = 'Feedback added successfully!';
 		} catch (err) {
-			console.error(err);
 			message = 'Failed to add feedback.';
+			console.error(err);
 		}
 	}
 
-// cehck if user already submitted feedback
-	async function checkUserFeedback(profId: string) {
+	// ---------- Function: Check User Feedback ----------
+	// Checks if the current user has already submitted feedback for the professor
+	async function checkUserFeedback() {
 		const auth = getAuth();
-		const currentUser = auth.currentUser;
-		if (!currentUser) return;
-
-		const professorRef = doc(db, 'professors', profId);
-		const feedbackRef = collection(professorRef, 'feedback');
-		const q = query(feedbackRef, where('userId', '==', currentUser.uid));
-		const snapshot = await getDocs(q);
-
-		hasSubmitted = !snapshot.empty;
+		const user = auth.currentUser;
+		if (!user) return;
+		const feedbackRef = collection(doc(db, 'professors', professorId), 'feedback');
+		const snap = await getDocs(query(feedbackRef, where('userId', '==', user.uid)));
+		hasSubmitted = !snap.empty;
 	}
 
-// readable timestamp
+	// Fetch course codes from 'courses' collection
+	async function loadCourseCodes() {
+		try {
+			const snap = await getDocs(collection(db, 'courses'));
+			courseCodes = snap.docs
+				.map(doc => doc.data().code)
+				.filter(Boolean)
+				.sort((a, b) => a.localeCompare(b)); // Sort alphabetically
+			console.log('Loaded course codes:', courseCodes);
+		} catch (e) {
+			console.error('Failed to load course codes', e);
+		}
+	}
+
+	// Load courses on component mount
+	loadCourseCodes();
+
+	// readable timestamp
 	function formatDate(date: Date): string {
-		const options: Intl.DateTimeFormatOptions = {
+		return date.toLocaleDateString(undefined, {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric',
 			hour: 'numeric',
 			minute: 'numeric'
-		};
-		return date.toLocaleDateString(undefined, options);
+		});
 	}
 
 	// when the slug changes, try to find a professor
@@ -179,8 +143,8 @@
 			findProfessorByUrl(slug);
 		}
 		if (professorId) {
-			loadFeedback(professorId);
-			checkUserFeedback(professorId);
+			loadFeedback();
+			checkUserFeedback();
 		}
 	}
 
@@ -202,25 +166,26 @@
 
 	{#if !hasSubmitted}
 		<FeedbackForm
-			bind:difficulty
-			bind:workload
-			bind:grading
-			bind:clarity
-			bind:take_again
-			bind:grade_recd
-			bind:structure
-			bind:prof_summary
+			bind:course_code={formFields.course_code}
+			bind:difficulty={formFields.difficulty}
+			bind:workload={formFields.workload}
+			bind:grading={formFields.grading}
+			bind:clarity={formFields.clarity}
+			bind:take_again={formFields.take_again}
+			bind:grade_recd={formFields.grade_recd}
+			bind:structure={formFields.structure}
+			bind:prof_summary={formFields.prof_summary}
 			ratingOptions={[1, 2, 3, 4, 5]}
+			courseCodes={courseCodes}
 			on:submit={handleSubmit}
 		/>
-	{:else}
-		<p></p>
 	{/if}
 
 	<div>
 		{#each feedbackList as fb (fb.id)}
 			<Feedback
-				course_name="course name"
+				data={{ path: fb.id }}
+				course_code={fb.course_code}
 				timestamp={fb.timestamp ? formatDate(fb.timestamp) : ''}
 				difficulty={fb.difficulty}
 				workload={fb.workload}

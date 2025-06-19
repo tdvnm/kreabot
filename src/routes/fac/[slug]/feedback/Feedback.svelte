@@ -3,7 +3,7 @@
 
 	export let data: PageData;
 
-	export let course_name: string;
+	export let course_code: string;
 	export let timestamp: string;
 
 	export let difficulty: number;
@@ -21,7 +21,7 @@
 <div class="container">
 	<div class="container__header">
 		<div class="heading">
-			<h1>{course_name}</h1>
+			<h1>{course_code}</h1>
 			<h2>{timestamp}</h2>
 		</div>
 	</div>
