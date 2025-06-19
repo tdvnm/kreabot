@@ -15,7 +15,7 @@
 		<slot />
 		<nav>
 			<button on:click={() => goto('/fac')}>faculty</button>
-			<button on:click={() => goto('/crs')}>courses</button>
+			<button on:click={() => goto('/crs/2025_t1')}>courses</button>
 			<button on:click={() => goto('/hb')}>handbook</button>
 			<button on:click={() => goto('/set')}>settings</button>
 		</nav>

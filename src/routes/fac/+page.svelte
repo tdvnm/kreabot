@@ -45,7 +45,7 @@
 <div class="search-container">
 	<input
 		type="text"
-		placeholder="search for professor or department ..."
+		placeholder="search professor or department"
 		bind:value={searchQuery}
 	/>
 	{#if searchQuery}
