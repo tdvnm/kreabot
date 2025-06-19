@@ -1,5 +1,5 @@
 import type { PageLoad } from '@sveltejs/kit';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '$lib/firebase';
 
 type Course = {
@@ -10,7 +10,7 @@ type Course = {
     credits: number;
     elig_years: string;
     faculty: string;
-    is_req: string; // "Required" or "Elective"
+    is_req: string;
     year_trim?: string;
     subject?: string;
 };
@@ -41,9 +41,11 @@ function getSubjectFromCode(code: string): string {
     return 'Other';
 }
 
-export const load: PageLoad = async () => {
+export const load: PageLoad = async ({ params }) => {
+    const { year_trim } = params;
     const collectionRef = collection(db, 'courses');
-    const snapshot = await getDocs(collectionRef);
+    const q = query(collectionRef, where('year_trim', '==', year_trim));
+    const snapshot = await getDocs(q);
 
     const allCourses: Course[] = [];
     snapshot.docs.forEach((doc) => {
@@ -62,7 +64,7 @@ export const load: PageLoad = async () => {
         });
     });
 
-    // Group by subject
+    // Group by subject (optional)
     const bySubject: Record<string, Course[]> = {};
     allCourses.forEach((course) => {
         const subject = course.subject || 'Other';
@@ -73,8 +75,8 @@ export const load: PageLoad = async () => {
         bySubject[subject].sort((a, b) => a.title.localeCompare(b.title));
     }
 
-
     return {
         bySubject,
+        allCourses
     };
 };

@@ -11,7 +11,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Read courses array from JSON file
-const courses = JSON.parse(fs.readFileSync(path.join(__dirname, 'src', 'routes', 'set', 'courses.json'), 'utf8'));
+const courses = JSON.parse(fs.readFileSync(path.join(__dirname, 'src', 'routes', 'set', '2024_t2.json'), 'utf8'));
 
 async function uploadCourses() {
   for (const course of courses) {
