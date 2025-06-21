@@ -5,7 +5,6 @@
 	import Sort from '$lib/components/icons/Sort.svelte';
 	import Delete from '$lib/components/icons/Delete.svelte';
 
-
 	export let data: {
 		bySubject: Record<string, any[]>;
 	};
@@ -48,26 +47,19 @@
 					.filter(
 						(course) =>
 							course.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-							course.code?.toLowerCase().includes(searchQuery.toLowerCase()) 
-							|| course.faculty?.toLowerCase().includes(searchQuery.toLowerCase())
+							course.code?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+							course.faculty?.toLowerCase().includes(searchQuery.toLowerCase())
 					)
 			: [];
 
 	let showFilterOptions = false;
 	$: if (searchQuery.length > 1) {
 		showFilterOptions = false; // Hide filter options when searching
-	}	
-
+	}
 </script>
 
-
-
 <div class="search-container">
-	<input
-		type="text"
-		placeholder="search faculty, course code, or title"
-		bind:value={searchQuery}
-	/>
+	<input type="text" placeholder="search faculty, course code, or title" bind:value={searchQuery} />
 	{#if searchQuery}
 		<button
 			class="clear-btn"
@@ -84,26 +76,38 @@
 </div>
 
 {#if showFilterOptions}
-<label>
-	<input type="checkbox" bind:checked={isRequired} />
-	Required Only
-</label>
-<label>
-	<input type="checkbox" bind:checked={isElective} />
-	Electives Only
-</label>
-<label>
-	<input type="checkbox" bind:checked={credits2} />
-	Credits 2
-</label>
-<label>
-	<input type="checkbox" bind:checked={credits3} />
-	Credits 3
-</label>
-<label>
-	<input type="checkbox" bind:checked={credits4} />
-	Credits 4
-</label>
+	<div class="filter-options">
+		<div class="filter-row">
+			<span>show only</span>
+			<div class="filter-labels">
+				<label>
+					<input type="checkbox" bind:checked={isRequired} />
+					required
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={isElective} />
+					electives
+				</label>
+			</div>
+		</div>
+		<div class="filter-row">
+			<span>credits</span>
+			<div class="filter-labels">
+				<label>
+					<input type="checkbox" bind:checked={credits2} />
+					2
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={credits3} />
+					3
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={credits4} />
+					4
+				</label>
+			</div>
+		</div>
+	</div>
 {/if}
 
 <main>
@@ -147,7 +151,7 @@
 		padding: 1rem;
 		height: 50vh;
 	}
-.search-container {
+	.search-container {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -195,6 +199,42 @@
 			height: 4rem;
 			font-size: 1.8rem;
 			border-radius: 0 4px 4px 0;
+		}
+	}
+
+	.filter-options {
+		padding: 1.2rem 1.6rem;
+		font-size: 1.4rem;
+		background-color: #f6f6f6;
+		border-bottom: var(--gray__border);
+
+		.filter-row {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+
+			span {
+				flex: 1 1 25%;
+				font-weight: 600;
+				margin-right: 16px;
+				color: var(--main__text);
+				min-width: 90px;
+			}
+			.filter-labels {
+				flex: 1 1 75%;
+				display: flex;
+				gap: 1rem;
+
+				label {
+					color: var(--light__text);
+					display: flex;
+					align-items: center;
+					margin-right: 1rem;
+					input {
+						margin-right: 0.5rem;
+					}
+				}
+			}
 		}
 	}
 </style>
