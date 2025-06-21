@@ -203,6 +203,8 @@
 	}
 
 	.filter-options {
+		display: flex;
+		flex-direction: column;
 		padding: 1.2rem 1.6rem;
 		font-size: 1.4rem;
 		background-color: #f6f6f6;
@@ -212,21 +214,19 @@
 			display: flex;
 			align-items: center;
 			margin-bottom: 10px;
+			color: var(--light__text);
 
 			span {
 				flex: 1 1 25%;
 				font-weight: 600;
 				margin-right: 16px;
-				color: var(--main__text);
 				min-width: 90px;
 			}
 			.filter-labels {
 				flex: 1 1 75%;
 				display: flex;
 				gap: 1rem;
-
 				label {
-					color: var(--light__text);
 					display: flex;
 					align-items: center;
 					margin-right: 1rem;
