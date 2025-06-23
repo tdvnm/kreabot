@@ -12,7 +12,7 @@
 	export let email: string = 'firstname.lastname@krea.edu.in';
 	export let location: string = 'room number';
 	export let office_hours: string = 'office hours';
-	export let url: string = '/fac/' + name.replace(/\s+/g, '_').toLowerCase();
+	export let url: string;
 	export const subject: string = 'subject name';
 
 	export let expanded: boolean = false;
@@ -72,7 +72,7 @@
 						<Star /> feedback
 					</span>
 				</a>
-				<a href={url} class="info">
+				<a href="fac/{url}" class="info">
 					<span>
 						<Script /> more info
 					</span>

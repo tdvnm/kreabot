@@ -13,6 +13,7 @@ type Professor = {
     office_hours: string;
     image_url: string;
     position: string;
+    url?: string; // Optional URL for the professor's page
 };
 
 export const load: PageLoad = async () => {
@@ -32,7 +33,8 @@ export const load: PageLoad = async () => {
             location: d.location,
             office_hours: d.office_hours,
             image_url: d.image_url,
-            position: d.position
+            position: d.position,
+            url: d.url || '' 
         };
         allProfessors.push(professor);
         if (!subject[professor.subject]) subject[professor.subject] = [];

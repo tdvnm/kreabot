@@ -20,7 +20,7 @@
 			code: string;
 			year_trim: string;
 			crosslisted?: string[];
-		};
+		}[];
 	};
 	const professor = data.professor;
 	const courses = data.courses || [];
