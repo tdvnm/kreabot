@@ -94,7 +94,8 @@ body {
   height: 100%;
   width: 100%;
   overflow: auto;
-  font-size: 64%;
+  font-size: 62.5%;
+  color: var(--main__text);
   font-family: 'Ubuntu Sans', sans-serif;
 }
 

@@ -43,7 +43,7 @@
 		subject={professor.subject}
 	/>
 
-	<Container heading="contact information">
+	<Container heading="contact information" collapsible={false}>
 		<div class="profile-grid">
 			<div class="detail-pair">
 				<div class="label">Office Hours</div>
@@ -133,10 +133,11 @@
 		.courses-list {
 			padding: 1rem;
 			color: var(--main__text);
+				font-size: 1.4rem;
 
 			h2 {
-				font-size: 1.4rem;
 				margin-top: 1rem;
+				font-size: 1.4rem;
 			}
 
 			h2:first-child {

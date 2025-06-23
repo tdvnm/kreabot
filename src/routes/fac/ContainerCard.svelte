@@ -67,7 +67,7 @@
 
 			<!-- buttons -->
 			<div class="buttons">
-				<a href="{url}/feedback" class="info">
+				<a href="fac/{url}/feedback" class="info">
 					<span>
 						<Star /> feedback
 					</span>
@@ -146,7 +146,7 @@
 		// detail
 		.details {
 			margin-top: 1rem;
-			font-size: 1.2rem;
+			font-size: 1.4rem;
 			max-height: 0;
 			overflow: hidden;
 			transition:
