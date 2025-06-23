@@ -13,6 +13,7 @@ type Course = {
     is_req: string;
     year_trim?: string;
     subject?: string;
+    crosslisted?: string[];
 };
 
 function getSubjectFromCode(code: string): string {
@@ -41,7 +42,7 @@ function getSubjectFromCode(code: string): string {
     return 'Other';
 }
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = async ({ params }: { params: { year_trim: string } }) => {
     const { year_trim } = params;
     const collectionRef = collection(db, 'courses');
     const q = query(collectionRef, where('year_trim', '==', year_trim));
@@ -50,9 +51,13 @@ export const load: PageLoad = async ({ params }) => {
     const allCourses: Course[] = [];
     snapshot.docs.forEach((doc) => {
         const d = doc.data();
+        const codeParts = (d.code || '').split('|').map(s => s.trim()).filter(Boolean);
+        const mainCode = codeParts[0]?.slice(0, 7) || '';
+        const crosslisted = codeParts.slice(1).map(s => s.slice(0, 7));
+
         allCourses.push({
             id: doc.id,
-            code: d.code,
+            code: mainCode,
             title: d.title,
             description: d.description,
             credits: d.credits,
@@ -60,11 +65,11 @@ export const load: PageLoad = async ({ params }) => {
             faculty: d.faculty,
             is_req: d.is_req,
             year_trim: d.year_trim,
-            subject: d.subject || getSubjectFromCode(d.code)
+            crosslisted,
+            subject: d.subject || getSubjectFromCode(mainCode)
         });
     });
 
-    // Group by subject (optional)
     const bySubject: Record<string, Course[]> = {};
     allCourses.forEach((course) => {
         const subject = course.subject || 'Other';

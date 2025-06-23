@@ -1,20 +1,24 @@
 import { db } from '$lib/firebase';
 import { error } from '@sveltejs/kit';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params }) => {
     const slug = params.slug;
 
     const coursesRef = collection(db, 'courses');
-    const q = query(coursesRef, where('code', '==', slug));
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocs(coursesRef);
 
-    if (snapshot.empty) {
+    const courseDoc = snapshot.docs.find(doc => {
+        const code = (doc.data().code ?? '').toUpperCase();
+        return code.substring(0, 7) === slug.toUpperCase();
+    });
+
+    if (!courseDoc) {
         throw error(404, 'Course not found');
     }
 
-    const course = snapshot.docs[0].data();
+    const course = courseDoc.data();
 
     return { course };
 };

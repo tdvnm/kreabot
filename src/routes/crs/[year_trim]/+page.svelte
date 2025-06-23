@@ -11,10 +11,15 @@
 
 	let isRequired = false;
 	let isElective = false;
+	let isCrosslisted = false;
 
 	let credits2 = false;
 	let credits3 = false;
 	let credits4 = false;
+
+	let years2 = false;
+	let years3 = false;
+	let years4 = false;
 
 	let searchQuery = '';
 
@@ -23,21 +28,45 @@
 
 	// filter functions
 	function showCourse(course: any) {
+		// Required/Elective/Crosslisted
 		const req = (course.is_req ?? '').toLowerCase() === 'required';
 		const elec = (course.is_req ?? '').toLowerCase() === 'elective';
+		const cross = Array.isArray(course.crosslisted) && course.crosslisted.length > 0;
 
-		let creditsMatch = true;
-		if (credits2 || credits3 || credits4) {
-			creditsMatch = false;
-			if (credits2 && Number(course.credits) === 2) creditsMatch = true;
-			if (credits3 && Number(course.credits) === 3) creditsMatch = true;
-			if (credits4 && Number(course.credits) === 4) creditsMatch = true;
+		if (isRequired && !req) return false;
+		if (isElective && !elec) return false;
+		if (isCrosslisted && !cross) return false;
+
+		// Credits
+		const selectedCredits = [credits2 && 2, credits3 && 3, credits4 && 4].filter(Boolean);
+		if (selectedCredits.length && !selectedCredits.includes(Number(course.credits))) return false;
+
+		// Years
+		const selectedYears = [
+			years2 && '2',
+			years3 && '3',
+			years4 && '4'
+		].filter(Boolean);
+
+		if (selectedYears.length) {
+			// Map selected years to allowed elig_years values
+			const yearMap: Record<string, string[]> = {
+				'2': ['2', '2,3', '2,3,4'],
+				'3': ['3', '3,4'],
+				'4': ['4']
+			};
+			const elig = String(course.elig_years ?? '')
+				.replace(/\s/g, '')
+				.replace(/'/g, '');
+
+			// If any selected year matches the allowed elig_years, show the course
+			const allowedEligYears = new Set(
+				selectedYears.flatMap((y) => yearMap[y])
+			);
+			if (!allowedEligYears.has(elig)) return false;
 		}
 
-		if (isRequired && isElective) return creditsMatch;
-		if (isRequired) return req && creditsMatch;
-		if (isElective) return elec && creditsMatch;
-		return creditsMatch;
+		return true;
 	}
 
 	$: searchResult =
@@ -91,6 +120,15 @@
 			</div>
 		</div>
 		<div class="filter-row">
+			<span style="visibility:hidden">show only</span>
+			<div class="filter-labels">
+				<label>
+					<input type="checkbox" bind:checked={isCrosslisted} />
+					crosslisted
+				</label>
+			</div>
+		</div>
+		<div class="filter-row">
 			<span>credits</span>
 			<div class="filter-labels">
 				<label>
@@ -103,6 +141,23 @@
 				</label>
 				<label>
 					<input type="checkbox" bind:checked={credits4} />
+					4
+				</label>
+			</div>
+		</div>
+		<div class="filter-row">
+			<span>years</span>
+			<div class="filter-labels">
+				<label>
+					<input type="checkbox" bind:checked={years2} />
+					2
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={years3} />
+					3
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={years4} />
 					4
 				</label>
 			</div>
@@ -123,7 +178,7 @@
 		{/if}
 	{:else}
 		{#each sortedSubjects as subject}
-			<Container heading={`${subject} (${data.bySubject[subject].length})`}>
+			<Container heading={`${subject} (${data.bySubject[subject].filter(showCourse).length})`}>
 				{#if data.bySubject[subject].length === 0}
 					<p class="no-results">No courses available for {subject}</p>
 				{/if}
@@ -213,7 +268,7 @@
 		.filter-row {
 			display: flex;
 			align-items: center;
-			margin-bottom: 10px;
+			margin: 6px 0;
 			color: var(--light__text);
 
 			span {

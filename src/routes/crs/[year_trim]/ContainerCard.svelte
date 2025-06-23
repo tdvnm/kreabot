@@ -4,11 +4,18 @@
 	export let code: string;
 	export let title: string;
 	export let year_trim: string;
+	export let crosslisted: string[] = [];
 </script>
 
 <section class="course-card" on:click={() => goto(`/crs/${year_trim}/${code}`)}>
 	<h4>{code}</h4>
+	{#if crosslisted && crosslisted.length > 0}
+		<p class="crosslisted">
+			crosslisted with {crosslisted.join(', ')}
+		</p>
+	{/if}
 	<h2>{title}</h2>
+	
 </section>
 
 <style>
@@ -22,9 +29,13 @@
 		}
 		h4 {
 			font-size: 1.4rem;
-            margin-bottom: 4px;
 			color: var(--light__text);
 			font-weight: 400;
+		}
+		.crosslisted {
+			font-size: 1.1rem;
+			color: #888;
+			margin-bottom: 4px;
 		}
 	}
 </style>
