@@ -8,9 +8,8 @@
     <h2>
         {#each segments as segment, i}
             <span
-                class="breadcrumb"
-                style="cursor: pointer;"
                 on:click={() => goto(paths[i])}
+                class:last={i === segments.length - 1}
             >
                 {segment}<span class="sep">/</span>
             </span>
@@ -35,10 +34,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+
+            span.last {
+                color: #5e2e3cde; 
+                font-weight: 600;
+            }
         }
         .sep {
-            margin: 0 0.1rem 0 0.2rem;
-            color: #b58392;
+            margin: 0 0.3rem;
+            color: #996a78;
         }
     }
 </style>

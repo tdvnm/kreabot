@@ -49,8 +49,10 @@
 					<span class="heading-kinda">grade received</span>
 					{grade_recd}
 				</p>
-				<p class="heading-kinda">would take again</p>
-				<p>{take_again}</p>
+				<p>
+					<span class="heading-kinda">would take again</span>
+					{take_again}
+				</p>
 			</div>
 			<div class="cell half">
 				<p class="heading-kinda">course structure</p>

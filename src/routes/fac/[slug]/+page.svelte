@@ -81,13 +81,13 @@
 	<Container heading="courses taught" collapsible={false}>
 		<div class="courses-list">
 			{#if !courses.length}
-				<p class="no-results">No courses available for this professor.</p>
+				<p class="no-results">no courses available for this professor.</p>
 			{:else}
 				{#each Object.keys(coursesByYear).sort() as yearTrim}
 					<h2>{yearTrim}</h2>
 					<ul>
 						{#each coursesByYear[yearTrim] as course}
-							<li>{course.title}</li>
+							<li><a href={`/crs/${course.year_trim}/${course.code}`}>{course.code} {course.title}</a></li>
 						{/each}
 					</ul>
 				{/each}
@@ -150,6 +150,10 @@
 
 				li {
 					margin-bottom: 0.2rem;
+					a {
+						color: var(--main__text);
+						text-decoration: none;
+					}
 				}
 			}
 		}

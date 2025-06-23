@@ -234,7 +234,7 @@
 	.filter-options {
 		display: flex;
 		flex-direction: column;
-		padding: 1.2rem 1.6rem;
+		padding: 1.2rem 2rem;
 		font-size: 1.4rem;
 		background-color: #f6f6f6;
 		border-bottom: var(--gray__border);
