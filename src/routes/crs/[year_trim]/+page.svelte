@@ -4,6 +4,7 @@
 
 	import Sort from '$lib/components/icons/Sort.svelte';
 	import Delete from '$lib/components/icons/Delete.svelte';
+	import Checkbox from '$lib/components/icons/Checkbox.svelte';
 
 	export let data: {
 		bySubject: Record<string, any[]>;
@@ -109,57 +110,30 @@
 		<div class="filter-row">
 			<span>show only</span>
 			<div class="filter-labels">
-				<label>
-					<input type="checkbox" bind:checked={isRequired} />
-					required
-				</label>
-				<label>
-					<input type="checkbox" bind:checked={isElective} />
-					electives
-				</label>
+				<Checkbox bind:checked={isRequired} label="required" />
+				<Checkbox bind:checked={isElective} label="elective" />
 			</div>
 		</div>
 		<div class="filter-row">
 			<span style="visibility:hidden">show only</span>
 			<div class="filter-labels">
-				<label>
-					<input type="checkbox" bind:checked={isCrosslisted} />
-					crosslisted
-				</label>
+				<Checkbox bind:checked={isCrosslisted} label="crosslisted" />
 			</div>
 		</div>
 		<div class="filter-row">
 			<span>credits</span>
 			<div class="filter-labels">
-				<label>
-					<input type="checkbox" bind:checked={credits2} />
-					2
-				</label>
-				<label>
-					<input type="checkbox" bind:checked={credits3} />
-					3
-				</label>
-				<label>
-					<input type="checkbox" bind:checked={credits4} />
-					4
-				</label>
+				<Checkbox bind:checked={credits2} label="2" />
+				<Checkbox bind:checked={credits3} label="3" />
+				<Checkbox bind:checked={credits4} label="4" />
 			</div>
 		</div>
 		<div class="filter-row">
 			<span>years</span>
 			<div class="filter-labels">
-				<label>
-					<input type="checkbox" bind:checked={years2} />
-					2
-				</label>
-				<label>
-					<input type="checkbox" bind:checked={years3} />
-					3
-				</label>
-				<label>
-					<input type="checkbox" bind:checked={years4} />
-					4
-				</label>
+				<Checkbox bind:checked={years2} label="2" />
+				<Checkbox bind:checked={years3} label="3" />
+				<Checkbox bind:checked={years4} label="4" />
 			</div>
 		</div>
 	</div>

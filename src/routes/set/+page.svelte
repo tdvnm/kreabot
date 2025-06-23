@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Checkbox from '$lib/components/icons/Checkbox.svelte';
 	import { auth } from '$lib/firebase';
 	import { signOut } from 'firebase/auth';
 
@@ -19,3 +20,7 @@
 <button on:click={toggleDarkMode}>
 	{darkMode ? 'Light Mode' : 'Dark Mode'}
 </button>
+
+<Checkbox />
+	
+
