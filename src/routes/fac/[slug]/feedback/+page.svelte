@@ -220,7 +220,7 @@
 <style lang="scss">
 	main {
 		padding: 12px 12px 5rem;
-		background-color: #f3f7fd;
+		background-color: #f4f6f9;
 		min-height: 100vh;
 	}
 </style>

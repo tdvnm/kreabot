@@ -15,8 +15,24 @@
 			courses?: string[]; // optional, if present in DB
 			date_of_joining?: string;
 		};
+		courses: {
+			title: string;
+			code: string;
+			year_trim: string;
+			crosslisted?: string[];
+		};
 	};
 	const professor = data.professor;
+	const courses = data.courses || [];
+
+	$: coursesByYear = courses.reduce(
+		(acc, course) => {
+			if (!acc[course.year_trim]) acc[course.year_trim] = [];
+			acc[course.year_trim].push(course);
+			return acc;
+		},
+		{} as Record<string, typeof courses>
+	);
 </script>
 
 <main>
@@ -27,24 +43,12 @@
 		subject={professor.subject}
 	/>
 
-	<Container heading="Contact Information">
+	<Container heading="contact information">
 		<div class="profile-grid">
 			<div class="detail-pair">
 				<div class="label">Office Hours</div>
 				<div class="value">{professor.office_hours}</div>
 			</div>
-			{#if professor.courses}
-				<div class="detail-pair">
-					<div class="label">Teaching Courses</div>
-					<div class="value">
-						<ul>
-							{#each professor.courses as course}
-								<li>{course}</li>
-							{/each}
-						</ul>
-					</div>
-				</div>
-			{/if}
 			<div class="detail-pair">
 				<div class="label">Contact</div>
 				<div class="value">{professor.email}</div>
@@ -73,20 +77,36 @@
 			</div>
 		</div>
 	</Container>
+
+	<Container heading="courses taught" collapsible={false}>
+		<div class="courses-list">
+			{#if !courses.length}
+				<p class="no-results">No courses available for this professor.</p>
+			{:else}
+				{#each Object.keys(coursesByYear).sort() as yearTrim}
+					<h2>{yearTrim}</h2>
+					<ul>
+						{#each coursesByYear[yearTrim] as course}
+							<li>{course.title}</li>
+						{/each}
+					</ul>
+				{/each}
+			{/if}
+		</div>
+	</Container>
 </main>
 
 <style>
 	main {
-		padding: 1.2rem;
-		min-height: 100vh;
-		background: linear-gradient(to bottom, #fffcfc 0%, var(--main-bg) 30%);
+		padding: 12px 12px 5rem;
+		min-height: 90vh;
 
 		.profile-grid {
 			display: flex;
 			flex-direction: column;
-			gap: 1.2rem;
-			color: var(--main-text);
-			padding: 1.2rem;
+			gap: 1rem;
+			color: var(--main__text);
+			padding: 1rem;
 			font-size: 1.4rem;
 
 			.detail-pair {
@@ -97,7 +117,6 @@
 
 				.label {
 					font-weight: 600;
-					opacity: 0.75;
 				}
 				.value {
 					white-space: pre-line;
@@ -107,6 +126,29 @@
 							margin-bottom: 0.5rem;
 						}
 					}
+				}
+			}
+		}
+
+		.courses-list {
+			padding: 1rem;
+			color: var(--main__text);
+
+			h2 {
+				font-size: 1.4rem;
+				margin-top: 1rem;
+			}
+
+			h2:first-child {
+				margin-top: 0;
+			}
+
+			ul {
+				list-style-type: none;
+				padding-left: 0;
+
+				li {
+					margin-bottom: 0.2rem;
 				}
 			}
 		}

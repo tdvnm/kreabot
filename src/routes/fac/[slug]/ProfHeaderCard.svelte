@@ -21,7 +21,6 @@
 		gap: 1.6rem;
 
 		background-color: rgb(255, 255, 255);
-		padding: 1.6rem;
 		border: 1px solid #cfbcbc;
 		border-radius: 4px;
 		box-shadow: 0 4px 10px -4px rgba(144, 114, 114, 0.1);

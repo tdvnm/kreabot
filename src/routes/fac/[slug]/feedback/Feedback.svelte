@@ -76,7 +76,8 @@
 			display: flex;
 			flex-direction: row;
 			padding: 0.5rem 0.8rem;
-			background: linear-gradient(to bottom, #ffffff 1%, #CFEEFF 10%, #98C7FF 95%, #87b3e8 100%);
+			background: linear-gradient(to bottom, #ffffff 1%, #f4f8fc 10%, #c9d8e6 95%, #cacfd4 100%);
+			// background: linear-gradient(to bottom, #ffffff 1%, #CFEEFF 10%, #98C7FF 95%, #87b3e8 100%);
 			border-bottom: 1px solid #3d4146a1;
 
 			border-radius: 4px 4px 0 0;

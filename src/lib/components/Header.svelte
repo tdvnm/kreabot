@@ -12,11 +12,8 @@
                 style="cursor: pointer;"
                 on:click={() => goto(paths[i])}
             >
-                {segment}
+                {segment}<span class="sep">/</span>
             </span>
-            {#if i < segments.length - 1}
-                <span class="sep">/</span>
-            {/if}
         {/each}
     </h2>
 </div>
@@ -40,7 +37,7 @@
             white-space: nowrap;
         }
         .sep {
-            margin: 0 0.1rem 0 -0.2rem;
+            margin: 0 0.1rem 0 0.2rem;
             color: #b58392;
         }
     }

@@ -7,10 +7,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ params }) => {
     const slug = params.slug;
 
-    const collectionRef = collection(db, 'professors');
-    const snapshot = await getDocs(collectionRef);
+    const profsRef = collection(db, 'professors');
+    const profSnapshot = await getDocs(profsRef);
 
-   const match = snapshot.docs.find((doc) => {
+    const match = profSnapshot.docs.find((doc) => {
         const data = doc.data();
         const url = data.url;
         return typeof url === 'string' && url.toLowerCase().endsWith(slug.toLowerCase());
@@ -21,9 +21,16 @@ export const load: PageServerLoad = async ({ params }) => {
     }
 
     const professor = match.data();
-    console.log(professor);
+
+    const coursesRef = collection(db, 'courses');
+    const coursesSnapshot = await getDocs(coursesRef);
+    const courses = coursesSnapshot.docs
+        .map(doc => doc.data())
+        .filter(course => typeof course.faculty === 'string' && course.faculty.includes(professor.name));
+
 
     return {
         professor,
+        courses
     };
 };
