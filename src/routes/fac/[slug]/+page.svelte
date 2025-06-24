@@ -87,7 +87,12 @@
 					<h2>{yearTrim}</h2>
 					<ul>
 						{#each coursesByYear[yearTrim] as course}
-							<li><a href={`/crs/${course.year_trim}/${course.code}`}>{course.code} {course.title}</a></li>
+							<li>
+								<a href={`/crs/${course.year_trim}/${course.code.slice(0, 7)}`}>
+									{course.code}
+									{course.title}
+								</a>
+							</li>
 						{/each}
 					</ul>
 				{/each}
@@ -133,7 +138,7 @@
 		.courses-list {
 			padding: 1rem;
 			color: var(--main__text);
-				font-size: 1.4rem;
+			font-size: 1.4rem;
 
 			h2 {
 				margin-top: 1rem;

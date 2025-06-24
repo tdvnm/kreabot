@@ -34,8 +34,8 @@
 		const elec = (course.is_req ?? '').toLowerCase() === 'elective';
 		const cross = Array.isArray(course.crosslisted) && course.crosslisted.length > 0;
 
-		if (isRequired && !req) return false;
-		if (isElective && !elec) return false;
+		// Only filter out if one of the filters is selected and the course doesn't match either
+		if ((isRequired || isElective) && !( (isRequired && req) || (isElective && elec) )) return false;
 		if (isCrosslisted && !cross) return false;
 
 		// Credits
@@ -50,17 +50,15 @@
 		].filter(Boolean);
 
 		if (selectedYears.length) {
-			// Map selected years to allowed elig_years values
 			const yearMap: Record<string, string[]> = {
 				'2': ['2', '2,3', '2,3,4'],
 				'3': ['3', '3,4'],
-				'4': ['4']
+				'4': ['4', '']
 			};
 			const elig = String(course.elig_years ?? '')
 				.replace(/\s/g, '')
 				.replace(/'/g, '');
 
-			// If any selected year matches the allowed elig_years, show the course
 			const allowedEligYears = new Set(
 				selectedYears.flatMap((y) => yearMap[y])
 			);
@@ -84,7 +82,7 @@
 
 	let showFilterOptions = false;
 	$: if (searchQuery.length > 1) {
-		showFilterOptions = false; // Hide filter options when searching
+		showFilterOptions = false; 
 	}
 </script>
 
@@ -234,7 +232,7 @@
 	.filter-options {
 		display: flex;
 		flex-direction: column;
-		padding: 1.2rem 2rem;
+		padding: 1.2rem 4rem;
 		font-size: 1.4rem;
 		background-color: #f6f6f6;
 		border-bottom: var(--gray__border);
