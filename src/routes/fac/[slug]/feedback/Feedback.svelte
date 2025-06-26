@@ -46,11 +46,11 @@
 
 			<div class="rating-box">
 				grade received<br />
-				<span class="score">{grade_recd}</span>
+				<span class="alpha-score">{grade_recd}</span>
 			</div>
 			<div class="rating-box">
 				would take again<br />
-				<span class="score">{take_again}</span>
+				<span class="alpha-score">{take_again}</span>
 			</div>
 
 			<div class="rating-box half">
@@ -131,6 +131,12 @@
 						display: block;
 						font-size: 2.5rem;
 						font-weight: 800;
+						color: #697a8e;
+					}
+					.alpha-score {
+						display: block;
+						font-size: 1.8rem;
+						font-weight: 600;
 						color: #697a8e;
 					}
 				}
