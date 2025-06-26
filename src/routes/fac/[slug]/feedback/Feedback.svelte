@@ -44,24 +44,23 @@
 				<span class="score">{clarity}</span>
 			</div>
 
-			<div class="cell half">
-				<p>
-					<span class="heading-kinda">grade received</span>
-					{grade_recd}
-				</p>
-				<p>
-					<span class="heading-kinda">would take again</span>
-					{take_again}
-				</p>
+			<div class="rating-box">
+				grade received<br />
+				<span class="score">{grade_recd}</span>
 			</div>
-			<div class="cell half">
-				<p class="heading-kinda">course structure</p>
-				<p>{structure}</p>
+			<div class="rating-box">
+				would take again<br />
+				<span class="score">{take_again}</span>
+			</div>
+
+			<div class="rating-box half">
+				<span class="heading-kinda">course structure</span>
+				<p class="desc">{structure}</p>
 			</div>
 
 			<div class="cell wide">
 				<p class="heading-kinda">professor summary</p>
-				<p>{prof_summary}</p>
+				<p class="desc">{prof_summary}</p>
 			</div>
 		</div>
 	</div>
@@ -111,62 +110,67 @@
 			padding: 0rem;
 			background-color: #ffffff;
 			border-radius: 0 0 4px 4px;
-		}
 
-		.prof-feedback {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 1px;
+			.prof-feedback {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1px;
 
-			background-color: #505357a1;
-			width: 100%;
-			border-radius: 4px;
+				background-color: #505357a1;
+				width: 100%;
+				border-radius: 4px;
 
-			.rating-box {
-				padding: 10px;
-				background: #ffffff;
-				font-weight: 500;
-				font-size: 1.4rem;
-				color: #818890ce;
-
-				.score {
-					display: block;
-					font-size: 2.5rem;
-					font-weight: 800;
-					color: #697a8e;
-				}
-			}
-
-			.cell {
-				padding: 10px;
-				background: white;
-				font-size: 1.2rem;
-
-				.heading-kinda {
+				.rating-box {
+					padding: 10px;
+					background: #ffffff;
 					font-weight: 500;
 					font-size: 1.4rem;
 					color: #818890ce;
-					margin-bottom: 0.5rem;
+
+					.score {
+						display: block;
+						font-size: 2.5rem;
+						font-weight: 800;
+						color: #697a8e;
+					}
+				}
+
+				.desc {
+					font-size: 1.4rem;
+					font-weight: 400;
+					color: #000;
+				}
+				.cell {
+					padding: 10px;
+					background: white;
+					font-size: 1.2rem;
+
+					.heading-kinda {
+						font-weight: 500;
+						font-size: 1.4rem;
+						color: #818890ce;
+						margin-bottom: 0.5rem;
+					}
+				}
+
+				/* Merged cells */
+				.half {
+					grid-column: span 2;
+				}
+
+				.wide {
+					grid-column: span 4;
+					border-radius: 0 0 4px 4px;
 				}
 			}
 
-			/* Merged cells */
-			.half {
-				grid-column: span 2;
-			}
-
-			.wide {
-				grid-column: span 4;
-				border-radius: 0 0 4px 4px;
-			}
-		}
-
-		.container__content p {
-			white-space: normal;
-			word-wrap: break-word;
-			overflow-wrap: break-word;
-			max-width: 100%;
-			color: #4c5259;
+			// .container__content p {
+			// 	white-space: normal;
+			// 	word-wrap: break-word;
+			// 	overflow-wrap: break-word;
+			// 	max-width: 100%;
+			// 	color: #4c5259;
+			// }
 		}
 	}
 </style>
