@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { db } from '$lib/firebase';
-	import { collection, addDoc, doc, getDocs, query, where, orderBy, arrayUnion, updateDoc, doc as firestoreDoc } from 'firebase/firestore';
+	import { collection, addDoc, doc, getDocs, query, where, orderBy, arrayUnion, updateDoc, doc as firestoreDoc, deleteDoc } from 'firebase/firestore';
 	import { page } from '$app/stores';
 	import { getAuth } from 'firebase/auth';
 
@@ -176,6 +176,37 @@
 		const auth = getAuth();
 		currentUserId = auth.currentUser ? auth.currentUser.uid : null;
 	}
+
+	// Delete feedback and remove its ID from user's feedbacks array
+	async function deleteFeedback(fb) {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (!user) {
+			message = 'You must be logged in to delete feedback.';
+			return;
+		}
+		try {
+			// Delete feedback document
+			const feedbackDocRef = doc(db, 'professors', professorId, 'feedback', fb.id);
+			await deleteDoc(feedbackDocRef);
+
+			// Remove feedback ID from user's feedbacks array
+			const userRef = firestoreDoc(db, 'users', user.uid);
+			await updateDoc(userRef, {
+				feedbacks: feedbackList
+					.filter(f => f.id !== fb.id && f.userId === user.uid)
+					.map(f => f.id)
+			});
+
+			hasSubmitted = false;
+			await loadFeedback();
+			await checkUserFeedback();
+			message = 'Feedback deleted successfully!';
+		} catch (err) {
+			message = 'Failed to delete feedback.';
+			console.error(err);
+		}
+	}
 </script>
 
 <main>
@@ -229,7 +260,7 @@
 					prof_summary={fb.prof_summary}
 				/>
 				{#if currentUserId === fb.userId}
-					<button class="edit-btn" on:click={() => editFeedback(fb)}>Edit</button>
+					<button class="edit-btn" on:click={() => deleteFeedback(fb)}>Delete</button>
 				{/if}
 			</div>
 		{/each}
@@ -246,9 +277,9 @@
 		margin: 0.5rem 0 1.5rem 0;
 		padding: 0.3rem 1.2rem;
 		border-radius: 4px;
-		border: 1px solid #7c4b69;
+		border: 1px solid #c0392b;
 		background: #fff;
-		color: #7c4b69;
+		color: #c0392b;
 		font-weight: 600;
 		cursor: pointer;
 		font-size: 1rem;
