@@ -1,12 +1,28 @@
 <script lang="ts">
-    import { user, auth } from '$lib/firebase';
+    import { user, auth, db } from '$lib/firebase';
     import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+    import { doc, getDoc, setDoc } from 'firebase/firestore';
 
     async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
         try {
             const userCredential = await signInWithPopup(auth, provider);
-            console.log(userCredential.user);
+            const u = userCredential.user;
+
+            // Check if user exists in Firestore
+            const userRef = doc(db, 'users', u.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (!userSnap.exists()) {
+                // Add user to Firestore
+                await setDoc(userRef, {
+                    email: u.email,
+                    is_student: true,
+                    photoUrl: u.photoURL ?? null,
+                    username: u.displayName?.replace(/\s+/g, '_').toLowerCase() ?? '',
+                    year: new Date().getFullYear().toString()
+                });
+            }
         } catch (error) {
             console.error('Error signing in with Google:', error);
         }

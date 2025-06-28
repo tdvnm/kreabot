@@ -41,13 +41,50 @@
             max-width: 580px;
             display: flex;
             justify-content: space-around;
-            background: linear-gradient(to top, #aaaaaa 0%, #ebebeb 100%);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 16px 8px rgba(255, 255, 255, 0.8);
             z-index: 100;
             padding: 0;
             border-top: none;
-            box-shadow: 0 -2px 10px rgba(39, 39, 39, 0.25);
+            overflow: hidden;
+            position: fixed;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.8),
+                    transparent
+                );
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 1px;
+                height: 100%;
+                background: linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.8),
+                    transparent,
+                    rgba(255, 255, 255, 0.3)
+                );
+            }
 
             button {
                 flex: 1;
@@ -66,10 +103,10 @@
             button.active,
             button:focus,
             button[aria-current="page"] {
-            background: linear-gradient(to bottom, #aaaaaa 0%, #ebebeb 100%);
+            //    kground: linear-gradient(to bottom, #aaaaaa 0%, #ebebeb 100%);
                 color: #3c3c3c;
                 font-weight: 700;
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.324) inset;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.24) inset;
             }
         }
     }

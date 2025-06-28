@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { db } from '$lib/firebase';
-	import { collection, addDoc, doc, getDocs, query, where, orderBy } from 'firebase/firestore';
+	import { collection, addDoc, doc, getDocs, query, where, orderBy, arrayUnion, updateDoc, doc as firestoreDoc } from 'firebase/firestore';
 	import { page } from '$app/stores';
 	import { getAuth } from 'firebase/auth';
 
@@ -83,12 +83,19 @@
 		}
 		try {
 			const feedbackRef = collection(doc(db, 'professors', professorId), 'feedback');
-			await addDoc(feedbackRef, {
+			const feedbackDoc = await addDoc(feedbackRef, {
 				userId: user.uid,
 				userName: user.displayName || 'anonymous',
 				...formFields,
 				timestamp: new Date()
 			});
+
+			// Add feedback ID to user's feedbacks array
+			const userRef = firestoreDoc(db, 'users', user.uid);
+			await updateDoc(userRef, {
+				feedbacks: arrayUnion(feedbackDoc.id)
+			});
+
 			hasSubmitted = true;
 			await loadFeedback();
 			message = 'Feedback added successfully!';
@@ -162,6 +169,13 @@
 		console.log('Alert:', message);
 		message = '';
 	}
+
+	// Get current user ID for edit checks
+	let currentUserId: string | null = null;
+	$: {
+		const auth = getAuth();
+		currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+	}
 </script>
 
 <main>
@@ -200,19 +214,24 @@
 
 	<div>
 		{#each feedbackList as fb (fb.id)}
-			<Feedback
-				data={{ path: fb.id }}
-				course_code={fb.course_code}
-				timestamp={fb.timestamp ? formatDate(fb.timestamp) : ''}
-				difficulty={fb.difficulty}
-				workload={fb.workload}
-				grading={fb.grading}
-				clarity={fb.clarity}
-				take_again={fb.take_again}
-				grade_recd={fb.grade_recd}
-				structure={fb.structure}
-				prof_summary={fb.prof_summary}
-			/>
+			<div>
+				<Feedback
+					data={{ path: fb.id }}
+					course_code={fb.course_code}
+					timestamp={fb.timestamp ? formatDate(fb.timestamp) : ''}
+					difficulty={fb.difficulty}
+					workload={fb.workload}
+					grading={fb.grading}
+					clarity={fb.clarity}
+					take_again={fb.take_again}
+					grade_recd={fb.grade_recd}
+					structure={fb.structure}
+					prof_summary={fb.prof_summary}
+				/>
+				{#if currentUserId === fb.userId}
+					<button class="edit-btn" on:click={() => editFeedback(fb)}>Edit</button>
+				{/if}
+			</div>
 		{/each}
 	</div>
 </main>
@@ -222,5 +241,17 @@
 		padding: 12px 12px 5rem;
 		background-color: #f4f6f9;
 		min-height: 100vh;
+	}
+	.edit-btn {
+		margin: 0.5rem 0 1.5rem 0;
+		padding: 0.3rem 1.2rem;
+		border-radius: 4px;
+		border: 1px solid #7c4b69;
+		background: #fff;
+		color: #7c4b69;
+		font-weight: 600;
+		cursor: pointer;
+		font-size: 1rem;
+		display: block;
 	}
 </style>
