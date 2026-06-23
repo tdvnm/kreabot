@@ -1,0 +1,176 @@
+{
+	"mathematics": {
+		"requirements": [
+			{
+				"name": "Concentration",
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 230"],
+				"notes": "Don't need to take them all in one year."
+			},
+			{
+				"name": "Minor (3 Year)",
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 230"],
+				"additional": "8 additional MATH credits (1XX and above)"
+			},
+			{
+				"name": "Minor (4 Year)",
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 230"],
+				"additional": "16 additional MATH credits (1XX and above)"
+			},
+			{
+				"name": "3 Year Single Major",
+				"total_credits": 60,
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 203", "MATH 226", "MATH 230", "MATH 231"],
+				"elective_pick": 4,
+				"elective_pool": ["MATH 303", "MATH 305", "MATH 213", "MATH 332", "MATH 333", "MATH 341", "MATH 328/428"],
+				"additional": "8 additional MATH credits",
+				"pathways": [
+					{
+						"label": "Recommended",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 341", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] }
+						]
+					}
+				]
+			},
+			{
+				"name": "3 Year Double Major",
+				"total_credits": 48,
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 203", "MATH 226", "MATH 230", "MATH 231"],
+				"elective_pick": 3,
+				"elective_pool": ["MATH 303", "MATH 305", "MATH 213", "MATH 332", "MATH 333", "MATH 341", "MATH 328/428"],
+				"pathways": [
+					{
+						"label": "Recommended",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 341", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] }
+						]
+					}
+				]
+			},
+			{
+				"name": "4 Year Single Major",
+				"total_credits": 80,
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 203", "MATH 226", "MATH 230", "MATH 231", "MATH 303", "MATH 305", "MATH 404", "MATH 405"],
+				"elective_pick": 3,
+				"elective_pool": ["MATH 213", "MATH 332", "MATH 333", "MATH 341", "MATH 414", "MATH 427", "MATH 434", "MATH 442", "MATH 445", "MATH 328/428"],
+				"additional": "12 additional MATH credits",
+				"pathways": [
+					{
+						"label": "Primary (strongly recommended)",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 213"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 427"], "t2": ["MATH 341", "MATH 231"], "t3": ["MATH 305", "MATH 414"] },
+							{ "year": 4, "t1": ["MATH 404", "MATH 442", "MATH 332"], "t2": ["MATH 328/428", "MATH 445"], "t3": ["MATH 405", "MATH 333"] }
+						]
+					},
+					{
+						"label": "Alternative 1",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 341"], "t3": ["MATH 305", "MATH 333"] },
+							{ "year": 4, "t1": ["MATH 404", "MATH 442", "MATH 427"], "t2": ["MATH 434", "MATH 328/428", "MATH 445"], "t3": ["MATH 405", "MATH 414"] }
+						]
+					},
+					{
+						"label": "Alternative 2",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 213"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 427"], "t2": ["MATH 328/428", "MATH 231"], "t3": ["MATH 305", "MATH 414"] },
+							{ "year": 4, "t1": ["MATH 404", "MATH 332"], "t2": ["MATH 445", "MATH 341"], "t3": ["MATH 405", "MATH 333"] }
+						]
+					},
+					{
+						"label": "Alternative 3",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231", "MATH 213"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332", "MATH 427"], "t2": ["MATH 328/428", "MATH 341", "MATH 445"], "t3": ["MATH 305", "MATH 333", "MATH 414"] },
+							{ "year": 4, "t1": ["MATH 404", "MATH 442"], "t2": ["MATH 434"], "t3": ["MATH 405"] }
+						]
+					}
+				]
+			},
+			{
+				"name": "4 Year Double Major",
+				"total_credits": 64,
+				"required": ["MATH 191", "MATH 201", "MATH 202", "MATH 203", "MATH 226", "MATH 230", "MATH 231", "MATH 303", "MATH 305"],
+				"elective_pick": 4,
+				"elective_pool": ["MATH 213", "MATH 332", "MATH 333", "MATH 341", "MATH 328/428"],
+				"additional": "12 additional MATH credits",
+				"pathways": [
+					{
+						"label": "Primary",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 341", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] },
+							{ "year": 4, "t1": [], "t2": [], "t3": [] }
+						]
+					},
+					{
+						"label": "Alternative 1",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] },
+							{ "year": 4, "t1": [], "t2": ["MATH 341"], "t3": [] }
+						]
+					},
+					{
+						"label": "Alternative 2",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 213"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 3, "t1": ["MATH 303"], "t2": ["MATH 328/428", "MATH 231"], "t3": ["MATH 305"] },
+							{ "year": 4, "t1": ["MATH 332"], "t2": ["MATH 341"], "t3": ["MATH 333"] }
+						]
+					},
+					{
+						"label": "Alternative 3",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 230"], "t2": ["MATH 231", "MATH 213"], "t3": ["MATH 203"] },
+							{ "year": 3, "t1": ["MATH 201", "MATH 332"], "t2": ["MATH 202", "MATH 328/428"], "t3": ["MATH 226"] },
+							{ "year": 4, "t1": ["MATH 303"], "t2": ["MATH 341"], "t3": ["MATH 305", "MATH 333"] }
+						]
+					},
+					{
+						"label": "Alternative 4",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": ["MATH 230"], "t2": ["MATH 213"], "t3": ["MATH 203"] },
+							{ "year": 3, "t1": ["MATH 201", "MATH 332"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 226"] },
+							{ "year": 4, "t1": ["MATH 303"], "t2": ["MATH 341", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] }
+						]
+					},
+					{
+						"label": "Alternative 5",
+						"grid": [
+							{ "year": 1, "t1": ["MATH 191"], "t2": [], "t3": [] },
+							{ "year": 2, "t1": [], "t2": [], "t3": [] },
+							{ "year": 3, "t1": ["MATH 201", "MATH 230"], "t2": ["MATH 202", "MATH 231"], "t3": ["MATH 203", "MATH 226"] },
+							{ "year": 4, "t1": ["MATH 303", "MATH 332"], "t2": ["MATH 213", "MATH 341", "MATH 328/428"], "t3": ["MATH 305", "MATH 333"] }
+						]
+					}
+				]
+			}
+		],
+		"faq": [
+			{
+				"q": "What mathematics courses can I take next year?",
+				"a": "The following courses are intended for students in the year after they have taken MATH 191:\n\n- Analysis 1 (MATH 201; T1)\n- Linear Algebra (MATH 230; T1)\n- Analysis 2 (MATH 202; T2; prerequisite: MATH 201)\n- Algebra 1 (MATH 231; T2; recommended prerequisite: MATH 230)\n- Multivariable Calculus (MATH 203; T3; prerequisite: MATH 202 and 230)\n- Ordinary Differential Equations (MATH 226; T3; prerequisite: MATH 202 and 230)\n\nThe following can also be taken in the year after MATH 191:\n\n- Probability (MATH 213; T2; prerequisite: prior calculus exposure, recommended: MATH 201)\n\nThere may also be mathematics elective courses that are accessible — use the course prerequisite requirements as a guide."
+			},
+			{
+				"q": "What mathematics courses should I take next year?",
+				"a": "Depends on what you want to do!\n\n1. Concentration: MATH 191, MATH 201, MATH 202, MATH 230. Don't need to take them all next year.\n\n2. Minor:\n   - 3 year degree: the four courses above + 8 additional MATH credits (required/elective courses at 1XX and above).\n   - 4 year degree: the four courses above + 16 additional MATH credits (required/elective courses at 1XX and above).\n\n3. 3 Year Major: For next year, MATH 201, MATH 202, MATH 203, MATH 230, MATH 231, MATH 226. If you can fit it in, MATH 213 as well (though that can be taken in the third year).\n   - 3 year single major: total of 60 MATH credits. All required courses + four elective courses + 8 additional MATH credits.\n   - 3 year double major: total of 48 MATH credits. All required courses + three elective courses.\n\n4. 4 Year Major:\n   - Single major: total of 80 MATH credits. All required courses + three elective courses + 12 additional MATH credits.\n   - Double major: total of 64 MATH credits. All required courses + four elective courses + 12 additional MATH credits. Multiple pathways are available."
+			}
+		]
+	}
+}

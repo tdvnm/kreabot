@@ -1,113 +1,174 @@
 <script lang="ts">
-	import '../app.css';
-	import { goto } from '$app/navigation';
-	import Header from '$lib/components/Header.svelte';
+	import '../app.scss';
 	import { page } from '$app/stores';
-	import AuthCheck from '$lib/components/AuthCheck.svelte';
+	import { slugify } from '$lib/utils';
+	import type { Snippet } from 'svelte';
 
-	$: segments = $page.url.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
-	$: paths = segments.map((_, i, arr) => '/' + arr.slice(0, i + 1).join('/'));
+	let { data, children }: { data: { subjects: string[] }; children: Snippet } = $props();
+	let currentSubject = $derived($page.params.subject || '');
+	let menuOpen = $state(false);
+
+	$effect(() => {
+		$page.url.pathname;
+		menuOpen = false;
+	});
 </script>
 
-<AuthCheck>
-	<div class="layout">
-		<Header {segments} {paths} />
-		<slot />
+<div class="app">
+	<header class="top-bar">
+		<button class="menu-toggle" onclick={() => (menuOpen = !menuOpen)} aria-label="Toggle menu">
+			{menuOpen ? '✕' : '☰'}
+		</button>
+		<!-- <h1 class="logo">kreabot</h1> -->
+		<img src="/TEMOLOGO.png" alt="Logo" class="logo-img" />
+	</header>
+
+	{#if menuOpen}
+		<button class="backdrop" onclick={() => (menuOpen = false)} aria-label="Close menu"></button>
+	{/if}
+
+	<aside class="sidebar-subjects" class:open={menuOpen}>
 		<nav>
-			<button class:active={$page.url.pathname.startsWith('/fac')} on:click={() => goto('/fac')}>faculty</button>
-			<button class:active={$page.url.pathname.startsWith('/crs')} on:click={() => goto('/crs/2025_t1')}>courses</button>
-			<button class:active={$page.url.pathname.startsWith('/hb')} on:click={() => goto('/hb')}>handbook</button>
-			<button class:active={$page.url.pathname.startsWith('/set')} on:click={() => goto('/set')}>settings</button>
+			{#each data.subjects as subject}
+				<a
+					href="/{slugify(subject)}"
+					class:active={currentSubject === slugify(subject)}
+				>
+					{subject}
+				</a>
+			{/each}
 		</nav>
+	</aside>
+
+	<div class="content-area">
+		{@render children()}
 	</div>
-</AuthCheck>
+</div>
 
 <style lang="scss">
-    .layout {
-        min-height: 100vh;
-        max-width: 580px;
-        margin: 0 auto;
-        font-size: 1.6rem;
-        background-color: var(--main__bg);
-        position: relative;
-        border: #ccc 1px solid;
+	@use '$lib/styles/mixins' as *;
 
-        nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100vw;
-            max-width: 580px;
-            display: flex;
-            justify-content: space-around;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 0 16px 8px rgba(255, 255, 255, 0.8);
-            z-index: 100;
-            padding: 0;
-            border-top: none;
-            overflow: hidden;
-            position: fixed;
+	.app {
+		display: grid;
+		grid-template-columns: 220px 1fr;
+		grid-template-rows: 5.6rem 1fr;
+		min-height: 100vh;
+		background-color: var(--color-bg);
 
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 1px;
-                background: linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.8),
-                    transparent
-                );
-            }
+		@include mobile {
+			grid-template-columns: 1fr;
+		}
+	}
 
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 1px;
-                height: 100%;
-                background: linear-gradient(
-                    180deg,
-                    rgba(255, 255, 255, 0.8),
-                    transparent,
-                    rgba(255, 255, 255, 0.3)
-                );
-            }
+	.top-bar {
+		grid-column: 1 / -1;
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		padding: 0 2rem;
+		background: linear-gradient(
+			to right,
+			var(--color-bg-light) 0%,
+			var(--color-bg-header-end) 30%,
+			var(--color-bg-header-start) 100%
+		);
+		border-bottom: 1px solid var(--color-border);
+		box-shadow: var(--shadow-card);
+		position: sticky;
+		top: 0;
+		z-index: 10;
 
-            button {
-                flex: 1;
-                background: none;
-                border: none;
-                color: #555555;
-                font-size: 1.4rem;
-                padding: 1.2rem 0 1rem 0;
-                font-weight: 500;
-                transition: background 0.2s, color 0.2s;
-                border-radius: 0;
-                box-shadow: none;
-                position: relative;
-            }
+		/* .logo {
+			font-size: 2rem;
+			font-weight: 600;
+			color: var(--color-text);
+		} */
 
-            button.active,
-            button:focus,
-            button[aria-current="page"] {
-            //    kground: linear-gradient(to bottom, #aaaaaa 0%, #ebebeb 100%);
-                color: #3c3c3c;
-                font-weight: 700;
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.24) inset;
-            }
-        }
-    }
+		.logo-img {
+			height: 3.6rem;
+			width: auto;
+		}
+	}
+
+	.menu-toggle {
+		display: none;
+		background: none;
+		border: none;
+		font-size: 2rem;
+		color: var(--color-text);
+		cursor: pointer;
+
+		@include mobile {
+			display: block;
+		}
+	}
+
+	.backdrop {
+		display: none;
+
+		@include mobile {
+			display: block;
+			position: fixed;
+			inset: 0;
+			top: 5.6rem;
+			background: var(--color-backdrop);
+			z-index: 15;
+			border: none;
+		}
+	}
+
+	.sidebar-subjects {
+		background: linear-gradient(to bottom, var(--color-bg-light) 0%, var(--color-bg) 100%);
+		border-right: 1px solid var(--color-border);
+		height: calc(100vh - 5.6rem);
+		position: sticky;
+		top: 5.6rem;
+		overflow-y: auto;
+		padding-top: 0.8rem;
+
+		nav {
+			display: flex;
+			flex-direction: column;
+
+			a {
+				padding: 0.8rem 1.6rem;
+				color: var(--color-text);
+				text-decoration: none;
+				font-size: 1.4rem;
+				font-weight: 400;
+				transition: background 0.2s ease;
+				border-left: 3px solid transparent;
+				text-transform: capitalize;
+
+				&:hover {
+					background: var(--color-hover-medium);
+				}
+
+				&.active {
+					background: var(--color-active);
+					border-left-color: var(--color-text);
+					font-weight: 600;
+					@include card-shine;
+				}
+			}
+		}
+
+		@include mobile {
+			position: fixed;
+			left: 0;
+			top: 5.6rem;
+			width: 220px;
+			z-index: 20;
+			transform: translateX(-100%);
+			transition: transform 0.2s ease;
+
+			&.open {
+				transform: translateX(0);
+			}
+		}
+	}
+
+	.content-area {
+		min-height: calc(100vh - 5.6rem);
+	}
 </style>

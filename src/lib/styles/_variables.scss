@@ -1,0 +1,60 @@
+// ─────────────────────────────────────────────
+// Design Tokens
+// ─────────────────────────────────────────────
+// All colors & spacing in one place.
+// To change the theme, edit ONLY this file.
+// ─────────────────────────────────────────────
+
+:root {
+	// ── Text ──
+	--color-text: #623a52;
+	--color-text-muted: #927f83;
+	--color-accent: #7c4b69;
+
+	// ── Borders ──
+	--color-border: #996a78;
+	--color-border-light: #b58392;
+	--color-border-card: #cfbcbc;
+	--color-border-divider: #f0e0e0;
+	--color-border-warm: #e0ccc4;
+
+	// ── Backgrounds ──
+	--color-bg: #f6eaea;
+	--color-bg-light: #fff8f8;
+	--color-bg-sidebar: #fdf5f3;
+	--color-bg-sidebar-end: #f8ece8;
+	--color-bg-header-start: #fff4f2;
+	--color-bg-header-end: #f0d4cc;
+	--color-bg-card-start: #ffffff;
+	--color-bg-card-end: #fffaf9;
+	--color-bg-warm-start: #f8ece8;
+	--color-bg-warm-end: #f0ddd6;
+
+	// ── Interactive states (from the rose-mauve palette) ──
+	--color-hover: rgba(150, 106, 120, 0.06);
+	--color-hover-medium: rgba(150, 106, 120, 0.08);
+	--color-active: rgba(150, 106, 120, 0.12);
+	--color-active-strong: rgba(150, 106, 120, 0.15);
+	--color-subtle: rgba(150, 106, 120, 0.1);
+
+	// ── Shadows ──
+	--shadow-card: 0 1px 3px rgba(144, 114, 114, 0.08);
+	--shadow-card-hover: 0 2px 6px rgba(144, 114, 114, 0.12);
+	--shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+	--shadow-inset-hover: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+	// ── Gradient shortcuts ──
+	--gradient-peach: linear-gradient(to bottom, #ffffff 0%, #ffd5bf 10%, #ffc7b1 60%, #ffc0b0 100%);
+
+	// ── Trim toggle ──
+	--color-trim-toggle: rgba(150, 106, 120, 0.28);
+	--color-trim-toggle-hover: rgba(150, 106, 120, 0.35);
+
+	// ── Initials avatar ──
+	--color-initials-bg-start: #e8d0d8;
+	--color-initials-bg-end: #d8c1ca;
+	--color-initials-text: rgba(110, 63, 79, 0.5);
+
+	// ── Backdrop ──
+	--color-backdrop: rgba(0, 0, 0, 0.3);
+}
