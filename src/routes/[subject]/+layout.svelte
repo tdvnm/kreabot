@@ -73,13 +73,9 @@
 			<h3>programme</h3>
 			<nav>
 				<a
-					href="/{subjectSlug}/programme/requirements"
-					class:active={currentPath === `/${subjectSlug}/programme/requirements`}
-				>requirements</a>
-				<a
-					href="/{subjectSlug}/programme/faq"
-					class:active={currentPath === `/${subjectSlug}/programme/faq`}
-				>faq</a>
+					href="/{subjectSlug}/programme"
+					class:active={currentPath === `/${subjectSlug}/programme`}
+				>programme</a>
 			</nav>
 		</div>
 

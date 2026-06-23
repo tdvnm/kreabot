@@ -51,12 +51,3 @@ export type Programme = {
 	pathways?: Pathway[];
 };
 
-export type ProgrammeFaq = {
-	q: string;
-	a: string;
-};
-
-export type ProgrammeData = {
-	requirements: Programme[];
-	faq: ProgrammeFaq[];
-};

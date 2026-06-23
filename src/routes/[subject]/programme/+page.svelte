@@ -114,7 +114,7 @@
 {/snippet}
 
 <div class="page-header">
-	<h1>programme requirements</h1>
+	<h1>programme</h1>
 </div>
 
 <div class="requirements-page">
