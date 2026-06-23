@@ -70,16 +70,6 @@
 		</div>
 
 		<div class="section">
-			<h3>programme</h3>
-			<nav>
-				<a
-					href="/{subjectSlug}/programme"
-					class:active={currentPath === `/${subjectSlug}/programme`}
-				>programme</a>
-			</nav>
-		</div>
-
-		<div class="section">
 			<h3>courses</h3>
 			<nav>
 				{#each sortedTrims as yt}
@@ -105,6 +95,13 @@
 				{/if}
 			</nav>
 		</div>
+		<a
+			class="section section-link"
+			href="/{subjectSlug}/programme"
+			class:active={currentPath === `/${subjectSlug}/programme`}
+		>
+			<h3>programme structure</h3>
+		</a>
 		<div class="section">
 			<h3>research</h3>
 		</div>
@@ -227,6 +224,20 @@
 				align-items: center;
 				justify-content: space-between;
 			}
+		}
+	}
+
+	.section-link {
+		text-decoration: none;
+		cursor: pointer;
+
+		&:hover {
+			background: var(--color-hover);
+		}
+
+		&.active h3 {
+			color: var(--color-text);
+			font-weight: 700;
 		}
 	}
 
