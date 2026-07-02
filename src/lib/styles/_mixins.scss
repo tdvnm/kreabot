@@ -27,7 +27,7 @@
 @mixin card-header {
 	display: flex;
 	align-items: center;
-	padding: 0 2.4rem;
+	padding: 0 2.5.6rem;
 	height: 5.6rem;
 	background: linear-gradient(to bottom, var(--color-bg-header-start) 0%, var(--color-bg-header-end) 30%);
 	box-shadow: var(--shadow-card);
@@ -44,11 +44,11 @@
 }
 
 // Label → value info row
-@mixin info-row($label-width: 14rem) {
+@mixin info-row($label-width: 15.6rem) {
 	display: grid;
 	grid-template-columns: $label-width 1fr;
 	gap: 1rem;
-	font-size: 1.4rem;
+	font-size: 1.5.6rem;
 	color: var(--color-text);
 }
 

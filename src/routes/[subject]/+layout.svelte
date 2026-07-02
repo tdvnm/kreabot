@@ -73,7 +73,7 @@
 			<h3>courses</h3>
 			<nav>
 				{#each sortedTrims as yt}
-					<button class="trim-toggle" onclick={() => toggleTrim(yt)}>
+					<button class="trim-toggle" class:expanded={expandedTrims[yt]} onclick={() => toggleTrim(yt)}>
 						<span class="arrow">{expandedTrims[yt] ? '−' : '+'}</span>
 						{formatYearTrim(yt)}
 					</button>
@@ -128,7 +128,7 @@
 	.subject-grid {
 		display: grid;
 		grid-template-columns: 280px 1fr;
-		min-height: calc(100vh - 5.6rem);
+		min-height: calc(100vh - 4rem);
 
 		@include mobile {
 			grid-template-columns: 1fr;
@@ -142,9 +142,9 @@
 			var(--color-bg-sidebar-end) 100%
 		);
 		border-right: 1px solid var(--color-border-light);
-		height: calc(100vh - 5.6rem);
+		height: calc(100vh - 4rem);
 		position: sticky;
-		top: 5.6rem;
+		top: 4rem;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
@@ -174,7 +174,6 @@
 		height: 5.6rem;
 		display: flex;
 		align-items: center;
-		border-bottom: 1px solid var(--color-border-light);
 		background: linear-gradient(
 			to bottom,
 			var(--color-bg-header-start) 0%,
@@ -183,6 +182,7 @@
 		box-shadow: var(--shadow-card);
 		width: 100%;
 		border: none;
+		border-bottom: 1px solid var(--color-border);
 		cursor: default;
 
 		h2 {
@@ -252,7 +252,7 @@
 	.trim-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
+		gap: 0.5.6rem;
 		padding: 0.5rem 1.6rem;
 		background: var(--color-trim-toggle);
 		border: none;
@@ -265,6 +265,10 @@
 
 		&:hover {
 			background: var(--color-trim-toggle-hover);
+		}
+
+		&.expanded {
+			background: rgba(150, 106, 120, 0.42);
 		}
 
 		.arrow {
@@ -317,7 +321,7 @@
 	}
 
 	.main-content {
-		min-height: calc(100vh - 5.6rem);
+		min-height: calc(100vh - 4rem);
 		overflow-y: auto;
 	}
 </style>

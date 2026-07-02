@@ -210,6 +210,7 @@
 	.course-header {
 		@include card-header;
 		gap: 1rem;
+		border-bottom: 1px solid var(--color-border);
 
 		.badge {
 			padding: 0.2rem 0.6rem;
@@ -272,7 +273,9 @@
 		h2 {
 			font-size: 1.4rem;
 			font-weight: 600;
-			color: var(--color-text);
+			color: var(--color-text-muted);
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
 			margin-bottom: 1rem;
 		}
 	}
@@ -312,6 +315,7 @@
 
 	.row {
 		@include info-row;
+		font-size: 1.6rem;
 
 		.label {
 			font-weight: 600;
@@ -324,7 +328,7 @@
 	}
 
 	.desc {
-		font-size: 1.4rem;
+		font-size: 1.6rem;
 		color: var(--color-text);
 		line-height: 1.6;
 	}
@@ -448,7 +452,7 @@
 		&.total {
 			font-weight: 700;
 			border-bottom: none;
-			border-top: 2px solid var(--color-border-light);
+			border-top: 1px dotted var(--color-border-light);
 		}
 
 		@include mobile {

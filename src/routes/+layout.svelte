@@ -21,6 +21,10 @@
 		</button>
 		<!-- <h1 class="logo">kreabot</h1> -->
 		<img src="/TEMOLOGO.png" alt="Logo" class="logo-img" />
+		<div class="user-area">
+			<span class="user-name">Student Name</span>
+			<button class="sign-out">sign out</button>
+		</div>
 	</header>
 
 	{#if menuOpen}
@@ -51,7 +55,7 @@
 	.app {
 		display: grid;
 		grid-template-columns: 220px 1fr;
-		grid-template-rows: 5.6rem 1fr;
+		grid-template-rows: 4rem 1fr;
 		min-height: 100vh;
 		background-color: var(--color-bg);
 
@@ -67,10 +71,9 @@
 		gap: 1.2rem;
 		padding: 0 2rem;
 		background: linear-gradient(
-			to right,
-			var(--color-bg-light) 0%,
-			var(--color-bg-header-end) 30%,
-			var(--color-bg-header-start) 100%
+			to bottom,
+			#f5eced 0%,
+			#e8dce0 100%
 		);
 		border-bottom: 1px solid var(--color-border);
 		box-shadow: var(--shadow-card);
@@ -78,15 +81,37 @@
 		top: 0;
 		z-index: 10;
 
-		/* .logo {
-			font-size: 2rem;
-			font-weight: 600;
-			color: var(--color-text);
-		} */
-
 		.logo-img {
-			height: 3.6rem;
+			height: 2.8rem;
 			width: auto;
+		}
+	}
+
+	.user-area {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+	}
+
+	.user-name {
+		font-size: 1.3rem;
+		font-weight: 500;
+		color: var(--color-text);
+	}
+
+	.sign-out {
+		padding: 0.4rem 1rem;
+		font-size: 1.2rem;
+		font-weight: 500;
+		color: var(--color-text);
+		background: rgba(0, 0, 0, 0.08);
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-radius: 3px;
+		cursor: pointer;
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.14);
 		}
 	}
 
@@ -110,7 +135,7 @@
 			display: block;
 			position: fixed;
 			inset: 0;
-			top: 5.6rem;
+			top: 4rem;
 			background: var(--color-backdrop);
 			z-index: 15;
 			border: none;
@@ -120,9 +145,9 @@
 	.sidebar-subjects {
 		background: linear-gradient(to bottom, var(--color-bg-light) 0%, var(--color-bg) 100%);
 		border-right: 1px solid var(--color-border);
-		height: calc(100vh - 5.6rem);
+		height: calc(100vh - 4rem);
 		position: sticky;
-		top: 5.6rem;
+		top: 4rem;
 		overflow-y: auto;
 		padding-top: 0.8rem;
 
@@ -156,7 +181,7 @@
 		@include mobile {
 			position: fixed;
 			left: 0;
-			top: 5.6rem;
+			top: 4rem;
 			width: 220px;
 			z-index: 20;
 			transform: translateX(-100%);
@@ -169,6 +194,6 @@
 	}
 
 	.content-area {
-		min-height: calc(100vh - 5.6rem);
+		min-height: calc(100vh - 4rem);
 	}
 </style>
